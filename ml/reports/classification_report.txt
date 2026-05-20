@@ -1,0 +1,15 @@
+StudyMate AI - Quiz Difficulty Classifier Training Report
+========================================================
+
+Overall Accuracy: 0.9516
+
+Detailed Class Metrics:
+              precision    recall  f1-score   support
+
+        easy       0.91      1.00      0.95        20
+        hard       1.00      0.95      0.98        21
+      medium       0.95      0.90      0.93        21
+
+    accuracy                           0.95        62
+   macro avg       0.95      0.95      0.95        62
+weighted avg       0.95      0.95      0.95        62

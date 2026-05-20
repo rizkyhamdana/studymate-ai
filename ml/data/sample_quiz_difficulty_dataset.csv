@@ -1,0 +1,247 @@
+question,answer,topic,difficulty
+What is machine learning?,A branch of AI that allows systems to learn from data without explicit programming.,Machine Learning,easy
+Compare supervised and unsupervised learning,Supervised learning uses labeled training data; unsupervised learning seeks hidden structures in unlabeled data.,Machine Learning,medium
+"Given a model with high training accuracy but low validation accuracy, explain the likely issue",The model is overfitting to the training set and failing to generalize.,Model Evaluation,hard
+What is a database index?,A data structure that improves the speed of data retrieval operations.,Databases,easy
+Explain the difference between SQL and NoSQL databases,SQL databases are relational and table-based; NoSQL databases are non-relational and document/key-value based.,Databases,medium
+Design a indexing strategy for a database table with high write activity but heavy filter queries on three columns,"Use composite B-tree indexes carefully aligned to query filter order, or partition the table to minimize write amplification.",Databases,hard
+Define the term cell in biology,"The basic structural, functional, and biological unit of all known organisms.",Biology,easy
+Explain how photosynthesis converts light energy to chemical energy,Photosynthesis captures sunlight with chlorophyll to convert carbon dioxide and water into glucose and oxygen.,Biology,medium
+Analyze the role of the electron transport chain during cellular respiration and the consequences of oxygen deprivation,"Oxygen is the terminal electron acceptor; deprivation halts ATP synthesis, causing cell death via metabolic arrest.",Biology,hard
+What is a variable in programming?,A stored value in memory that can be referenced and altered in a program.,Computer Science,easy
+Explain the difference between a stack and a queue,A stack is Last-In First-Out (LIFO); a queue is First-In First-Out (FIFO).,Computer Science,medium
+Implement a thread-safe priority queue with logarithmic operations and explain its race condition preventions,Use a binary heap backed by atomic operations and re-entrant mutex locks during insertion and extraction.,Computer Science,hard
+State Newton's first law of motion,"An object at rest stays at rest, and an object in motion stays in motion unless acted upon by an external force.",Physics,easy
+Explain the difference between kinetic energy and potential energy,Kinetic energy is energy of motion; potential energy is stored energy due to position or state.,Physics,medium
+Derive the escape velocity formula for a rocket leaving a planet of mass M and radius R,Integrate gravitational force from radius R to infinity and equate kinetic energy to negative potential energy.,Physics,hard
+What was the main cause of World War I?,Assassination of Archduke Franz Ferdinand along with complex alliances and militarism.,History,easy
+Describe the impact of the Industrial Revolution on urban development in the 19th century,"It caused rapid urbanization, massive population shifts from rural to urban zones, and poor sanitation.",History,medium
+Critically assess how post-WWI reparations and the Treaty of Versailles directly influenced the economic collapse of the Weimar Republic,"Reparations triggered hyperinflation, eroded public faith in democratic systems, and created social unrest.",History,hard
+What is a prime number?,A number greater than 1 that has no positive divisors other than 1 and itself.,Mathematics,easy
+Explain how to find the derivative of a function using the power rule,Multiply by the exponent and subtract one from the exponent of the variable.,Mathematics,medium
+Prove that the square root of 2 is an irrational number using a proof by contradiction,"Assume it is rational (a/b in lowest terms), square both sides, show a and b must both be even, contradicting lowest terms.",Mathematics,hard
+What is HTML?,"HyperText Markup Language, the standard language for creating web pages.",Web Development,easy
+Explain how client-side rendering differs from server-side rendering,Client-side renders pages in the browser using JS; server-side builds HTML on the server and delivers it.,Web Development,medium
+Optimize a React application experiencing layout thrashing during virtualized window scrolls with deep DOM trees,"Throttle scroll events, use absolute positioning offsets, offload calculations to requestAnimationFrame, and memoize nodes.",Web Development,hard
+Define photosynthesis,"The process by which plants make food using sunlight, water, and carbon dioxide.",Biology,easy
+What is the difference between mitosis and meiosis?,Mitosis produces two genetically identical diploid cells; meiosis produces four genetically unique haploid cells.,Biology,medium
+Explain how CRISPR-Cas9 performs gene editing at the molecular level,It uses a guide RNA to locate a target DNA sequence and the Cas9 enzyme to introduce a double-stranded break.,Biology,hard
+What is gravity?,A force that pulls objects toward each other.,Physics,easy
+How does a nuclear reactor generate electricity?,"Fission heats water into steam, which spins a turbine connected to an electric generator.",Physics,medium
+Explain the significance of the Michelson-Morley experiment and its impact on the ether theory,"It found no difference in light speed, disproving the luminiferous ether and paving the way for special relativity.",Physics,hard
+Who was the first president of the United States?,George Washington.,History,easy
+Explain the main goals of the New Deal during the Great Depression,"To provide relief for the unemployed, recovery for the economy, and reform of financial systems.",History,medium
+Evaluate the long-term geopolitical and socioeconomic consequences of the Fall of Constantinople in 1453,"It severed European trade routes to Asia, sparking the Age of Discovery, and triggered the Greek diaspora.",History,hard
+Apa yang dimaksud dengan kecerdasan buatan?,Teknologi yang memungkinkan mesin untuk belajar dan meniru kecerdasan manusia.,Kecerdasan Buatan,easy
+Apa fungsi utama dari RAM pada komputer?,Menyimpan data secara sementara untuk diproses dengan cepat oleh CPU.,Ilmu Komputer,easy
+Siapakah presiden pertama Republik Indonesia?,Ir. Soekarno.,Sejarah,easy
+Apakah yang dimaksud dengan fotosintesis?,Proses tumbuhan membuat makanan menggunakan cahaya matahari.,Biologi,easy
+Berapakah hasil dari 15 dikalikan dengan 4?,Hasilnya adalah 60.,Matematika,easy
+Apa kegunaan utama dari HTML pada pembuatan website?,Untuk membuat struktur dasar dan layout dari suatu halaman web.,Teknologi Informasi,easy
+Apakah hukum gravitasi universal Newton menjelaskan kekuatan tarik-menarik?,"Ya, menjelaskan gaya tarik antara dua benda bermassa yang berbanding terbalik dengan kuadrat jarak.",Fisika,easy
+Apa itu sel dalam pelajaran biologi?,Unit struktural dan fungsional terkecil dari makhluk hidup.,Biologi,easy
+Apa fungsi utama dari kabel serat optik?,Mengirimkan data dengan kecepatan tinggi menggunakan pulsa cahaya.,Jaringan Komputer,easy
+Berapakah jumlah sudut dalam sebuah segitiga sama sisi?,180 derajat.,Matematika,easy
+Siapakah penemu bola lampu pijar yang terkenal?,Thomas Alva Edison.,Sejarah,easy
+Jelaskan perbedaan antara pembelahan sel mitosis dan meiosis,"Mitosis menghasilkan dua sel anakan diploid yang identik, sedangkan meiosis menghasilkan empat sel haploid yang berbeda untuk reproduksi.",Biologi,medium
+Bagaimana cara kerja algoritma Binary Search dibandingkan dengan Linear Search?,"Binary Search membagi data terurut menjadi dua bagian berulang kali (O(log n)), sedangkan Linear Search memeriksa satu per satu (O(n)).",Ilmu Komputer,medium
+Jelaskan konsep dasar dari hukum kekekalan energi dalam fisika,"Energi tidak dapat diciptakan atau dimusnahkan, melainkan hanya dapat diubah dari satu bentuk ke bentuk lainnya.",Fisika,medium
+Bagaimana pengaruh Revolusi Industri terhadap pergeseran populasi di Eropa pada abad ke-19?,Memicu urbanisasi besar-besaran karena masyarakat desa pindah ke kota untuk bekerja di pabrik.,Sejarah,medium
+Jelaskan perbedaan antara database relasional (SQL) dan non-relasional (NoSQL),"SQL menggunakan tabel berstruktur dengan skema tetap, sedangkan NoSQL menggunakan format dokumen atau key-value yang fleksibel.",Basis Data,medium
+Bagaimanakah cara menentukan turunan pertama dari fungsi kuadrat menggunakan aturan pangkat?,"Kalikan koefisien dengan pangkat lama, lalu kurangi pangkat variabel dengan satu.",Matematika,medium
+Jelaskan apa itu supervised learning dalam konteks machine learning,Proses pelatihan model menggunakan dataset yang sudah memiliki label atau jawaban yang benar.,Kecerdasan Buatan,medium
+Apa perbedaan antara client-side rendering (CSR) dan server-side rendering (SSR)?,"CSR merender halaman di browser menggunakan JavaScript, sedangkan SSR membuat HTML lengkap di server sebelum dikirim ke browser.",Pengembangan Web,medium
+Bagaimana sistem kerja reaktor nuklir dalam menghasilkan energi listrik secara umum?,"Reaksi fisi memanaskan air menjadi uap, yang kemudian memutar turbin untuk menggerakkan generator listrik.",Fisika,medium
+Jelaskan dampak Perjanjian Versailles terhadap perekonomian Jerman setelah Perang Dunia I,Menuntut ganti rugi perang yang sangat besar yang memicu hiperinflasi dan keruntuhan ekonomi Jerman.,Sejarah,medium
+Jelaskan konsep encapsulation dalam pemrograman berorientasi objek,Menyembunyikan detail implementasi internal objek dan hanya menyediakan akses melalui metode publik.,Ilmu Komputer,medium
+Analisis peran rantai transpor elektron dalam respirasi selular dan akibat jika kekurangan oksigen,"Oksigen adalah akseptor elektron terakhir; tanpanya, sintesis ATP terhenti dan menyebabkan kematian sel akibat henti metabolik.",Biologi,hard
+Bagaimana cara mengoptimalkan aplikasi web yang mengalami penurunan performa rendering saat melakukan scroll pada list data yang sangat besar?,"Gunakan teknik virtualized list untuk hanya me-render elemen yang terlihat di layar, dan hindari layout thrashing dengan membatasi manipulasi DOM langsung.",Pengembangan Web,hard
+Buktikan bahwa akar kuadrat dari 2 adalah bilangan irasional menggunakan metode kontradiksi,"Asumsikan akar 2 rasional (a/b), kuadratkan kedua sisi sehingga 2 = a^2/b^2, tunjukkan a dan b keduanya genap, yang mengontradiksi penyederhanaan paling sederhana.",Matematika,hard
+Rancang strategi pengindeksan database pada tabel dengan aktivitas tulis yang sangat tinggi dan pencarian multi-kolom yang kompleks,Gunakan indeks komposit B-tree secara selektif sesuai urutan filter query dan pertimbangkan partisi tabel guna mengurangi overhead penulisan.,Basis Data,hard
+Implementasikan antrean prioritas (priority queue) yang thread-safe dengan operasi logaritmik dalam pemrograman multi-threaded,Gunakan binary heap yang dilindungi dengan mutex lock re-entrant atau operasi atomik guna mencegah terjadinya race condition.,Ilmu Komputer,hard
+Jelaskan bagaimana mekanisme kerja CRISPR-Cas9 dalam melakukan penyuntingan gen pada tingkat molekuler,CRISPR menggunakan RNA pemandu untuk mendeteksi urutan DNA target dan enzim Cas9 memotong untai ganda DNA untuk disunting.,Biologi,hard
+Evaluasi dampak geopolitik dan sosio-ekonomi jangka panjang dari peristiwa kejatuhan Konstantinopel pada tahun 1453,"Peristiwa ini memutus rute perdagangan jalur darat Eropa ke Asia, memicu era penjelajahan samudra, dan mendorong terjadinya diaspora cendekiawan Yunani.",Sejarah,hard
+Jelaskan signifikansi dari eksperimen Michelson-Morley dan bagaimana pengaruhnya terhadap runtuhnya teori eter,"Eksperimen tersebut membuktikan bahwa kecepatan cahaya konstan ke segala arah, membantah keberadaan eter luminiferus, dan meletakkan dasar bagi teori relativitas khusus Einstein.",Fisika,hard
+Bagaimana mengatasi overfitting pada model deep learning dengan arsitektur jaringan saraf tiruan yang sangat dalam?,"Terapkan teknik regulasi seperti Dropout, L2 regularization, early stopping, dan perluas dataset menggunakan data augmentation.",Kecerdasan Buatan,hard
+Derifasikan rumus kecepatan lepas (escape velocity) dari gravitasi sebuah planet bermassa M dan berjejari R,"Integralkan gaya gravitasi dari jari-jari R hingga tak terhingga untuk menghitung energi potensial, lalu samakan energi kinetik dengan energi potensial tersebut.",Fisika,hard
+Jelaskan analisis kompleksitas waktu dan ruang dari algoritma pengurutan QuickSort dalam kasus terburuk beserta cara mitigasinya,Kasus terburuk memiliki kompleksitas O(n^2) saat pivot yang dipilih adalah elemen ekstrem; mitigasi dilakukan dengan memilih pivot secara acak atau menggunakan teknik median-of-three.,Ilmu Komputer,hard
+What is a CPU?,"Central Processing Unit, the primary component of a computer that performs instructions.",Computer Science,easy
+What is the capital of France?,Paris.,History,easy
+Define density.,Mass per unit volume.,Physics,easy
+What is a cell membrane?,The semipermeable membrane surrounding the cytoplasm of a cell.,Biology,easy
+Solve for x: 2x = 10.,x = 5.,Mathematics,easy
+What is CSS?,"Cascading Style Sheets, used to style HTML documents.",Web Development,easy
+Define friction.,The resistance that one surface or object encounters when moving over another.,Physics,easy
+What is DNA?,"Deoxyribonucleic acid, the molecule that carries genetic instructions.",Biology,easy
+Name the first human to step on the Moon.,Neil Armstrong.,History,easy
+What is a fraction in math?,"A numerical quantity that is not a whole number (e.g., 1/2).",Mathematics,easy
+Explain how a standard search engine indexes web pages.,"Crawlers fetch web pages, extract text, and store them in an inverted index.",Computer Science,medium
+Describe the main stages of the water cycle.,"Evaporation, condensation, precipitation, and collection.",Biology,medium
+Compare series and parallel circuits.,Series circuits have one path for current; parallel circuits have multiple paths.,Physics,medium
+Explain the cause of the Great Depression.,"The stock market crash of 1929, banking panics, and gold standard adherence.",History,medium
+Explain how to calculate the derivative of a trigonometric function.,"Use derivative formulas, e.g., d/dx(sin x) = cos x.",Mathematics,medium
+Describe the purpose of middleware in web architecture.,"It acts as a bridge between database and application, handling auth, logging, and routing.",Web Development,medium
+Explain how natural selection drives evolution.,Organisms with favorable traits are more likely to survive and reproduce.,Biology,medium
+How does a transformer in electrical engineering step up voltage?,It uses electromagnetic induction between primary and secondary coils with different turn ratios.,Physics,medium
+Explain the main differences between primary and secondary historical sources.,Primary sources are direct first-hand evidence; secondary sources analyze primary sources.,History,medium
+How do you find the area of a circle using integration?,Integrate 2*pi*r dr from 0 to R to get pi*R^2.,Mathematics,medium
+Analyze how garbage collection algorithms manage memory in high-performance virtual machines.,"They trace object graphs from roots, identifying unreachable memory, and compact memory regions using copying or mark-sweep algorithms.",Computer Science,hard
+Evaluate how quantum entanglement violates local realism under Bell's theorem.,"Bell showed quantum mechanics predicts correlations exceeding local hidden variables, verified by experimental Bell inequality violations.",Physics,hard
+Evaluate the geopolitical impacts of the Cold War on Southeast Asian conflicts.,"It created proxy wars (Korea, Vietnam), triggered polarization, and accelerated the formation of ASEAN.",History,hard
+Explain the thermodynamic differences between isothermal and adiabatic expansion processes.,"Isothermal keeps temperature constant by exchanging heat; adiabatic has no heat exchange, changing internal temperature.",Physics,hard
+Prove that there are infinitely many prime numbers using Euclid's proof.,"Assume finite primes, multiply them and add 1; this new number must have a prime factor not in the finite set, creating a contradiction.",Mathematics,hard
+Optimize a relational database schema experiencing heavy join overhead under third normal form (3NF).,"Apply selective denormalization, create covering composite indexes, or utilize materialized views to pre-compute heavy joins.",Databases,hard
+Analyze the mechanism of action of non-competitive enzyme inhibitors.,"They bind to an allosteric site rather than the active site, altering the enzyme conformation and reducing Vmax without changing Km.",Biology,hard
+Design a distributed consensus protocol similar to Raft and explain its split-vote mitigation.,"Use randomized election timeouts so one node initiates election sooner, gaining majority votes before competitors.",Computer Science,hard
+Critically evaluate how hyperinflation in the Weimar Republic eroded public confidence in democratic institutions.,"Hyperinflation wiped out savings, alienated middle class, and paved way for extremist promises of stability.",History,hard
+Solve a second-order non-homogeneous differential equation using the method of undetermined coefficients.,"Find the complementary solution, guess the particular solution based on the non-homogeneous term, solve for coefficients, and combine.",Mathematics,hard
+Apa yang dimaksud dengan perangkat keras komputer?,"Semua komponen fisik komputer seperti CPU, RAM, harddisk, dan motherboard.",Ilmu Komputer,easy
+Siapakah penemu benua Amerika yang terkenal?,Christopher Columbus.,Sejarah,easy
+Apakah fungsi utama daun pada tumbuhan?,Tempat terjadinya proses fotosintesis untuk memproduksi makanan.,Biologi,easy
+Berapakah hasil dari 25 ditambah 35?,Hasilnya adalah 60.,Matematika,easy
+Apa fungsi utama dari CSS pada halaman web?,"Untuk mengatur gaya tampilan, warna, dan layout dari elemen HTML.",Pengembangan Web,easy
+Apa yang dimaksud dengan gaya gesek?,Gaya yang timbul akibat sentuhan antara dua permukaan benda yang saling bergeser.,Fisika,easy
+Apa kegunaan utama dari organ jantung?,Memompa darah ke seluruh tubuh untuk menyalurkan oksigen dan nutrisi.,Biologi,easy
+Siapakah pahlawan nasional yang mendapat julukan Bapak Pendidikan Nasional?,Ki Hajar Dewantara.,Sejarah,easy
+Berapakah nilai dari akar kuadrat 144?,Nilainya adalah 12.,Matematika,easy
+Apa kepanjangan dari URL dalam internet?,Uniform Resource Locator.,Teknologi Informasi,easy
+Jelaskan bagaimana proses siklus air terjadi di alam secara berurutan.,"Air menguap (evaporasi), membentuk awan (kondensasi), turun sebagai hujan (presipitasi), dan meresap kembali.",Biologi,medium
+Bagaimana cara kerja metode pengurutan Bubble Sort dibandingkan dengan Selection Sort?,"Bubble Sort menukar elemen bersebelahan secara berulang, sedangkan Selection Sort mencari elemen terkecil lalu menukarnya.",Ilmu Komputer,medium
+Jelaskan perbedaan antara rangkaian listrik seri dan paralel.,"Rangkaian seri memiliki satu jalur aliran arus tunggal, sedangkan rangkaian paralel memiliki beberapa cabang aliran.",Fisika,medium
+Jelaskan faktor utama yang melatarbelakangi terjadinya Perang Diponegoro.,Campur tangan Belanda dalam urusan keraton Yogyakarta dan pembangunan jalan yang melintasi makam leluhur Diponegoro.,Sejarah,medium
+Bagaimanakah cara menentukan limit fungsi aljabar saat mendekati nilai tertentu?,"Substitusikan langsung nilai tersebut, atau faktorkan pembilang dan penyebut jika menghasilkan bentuk tak tentu 0/0.",Matematika,medium
+Jelaskan kegunaan utama dari protokol HTTPS dibandingkan HTTP biasa.,"HTTPS mengenkripsi komunikasi data menggunakan SSL/TLS untuk keamanan, sedangkan HTTP biasa mengirim data tanpa enkripsi.",Pengembangan Web,medium
+Bagaimana pengaruh letak astronomis Indonesia terhadap pembagian zona waktu?,"Letak bujur Indonesia membuat wilayahnya terbagi menjadi tiga zona waktu: WIB, WITA, dan WIT.",Geografi,medium
+Jelaskan proses terjadinya gerhana matahari secara astronomis.,"Terjadi ketika bulan berada di antara bumi dan matahari, sehingga menutup sebagian atau seluruh cahaya matahari ke bumi.",Fisika,medium
+Jelaskan konsep dasar inheritance (pewarisan) dalam pemrograman berbasis objek.,Mekanisme yang memungkinkan suatu kelas (subclass) mewarisi properti dan metode dari kelas lain (superclass).,Ilmu Komputer,medium
+Jelaskan kegunaan statistik standar deviasi dalam analisis data.,Mengukur sejauh mana data dalam kelompok tersebut menyebar atau bervariasi dari nilai rata-rata kelompok.,Matematika,medium
+Analisis bagaimana protokol konsensus Paxos menyelesaikan masalah konsensus terdistribusi pada jaringan yang tidak andal.,Paxos menggunakan mekanisme proposal bertingkat (prepare/promise dan accept/accepted) untuk menyetujui satu nilai tunggal meskipun terjadi delay.,Ilmu Komputer,hard
+Evaluasi bagaimana teori relativitas umum Einstein menjelaskan fenomena kelengkungan ruang-waktu akibat massa.,"Massa dan energi memberi tahu ruang-waktu bagaimana melengkung, dan kelengkungan memberi tahu benda bagaimana bergerak, menciptakan efek gravitasi.",Fisika,hard
+Analisis dampak jangka panjang dari Konferensi Meja Bundar (KMB) terhadap kedaulatan ekonomi Indonesia.,KMB memaksa Indonesia memikul hutang Hindia Belanda dalam jumlah besar yang membebani APBN awal Republik.,Sejarah,hard
+Jelaskan perbedaan mendasar antara siklus Carnot dan siklus diesel pada hukum termodinamika.,"Siklus Carnot menggunakan dua proses isotermal dan dua adiabatik reversibel, sedangkan siklus diesel menggunakan pembakaran tekanan konstan.",Fisika,hard
+Buktikan bahwa bilangan prima tak terhingga banyaknya menggunakan argumen kontradiksi klasik.,"Asumsikan bilangan prima berhingga, kalikan semuanya lalu tambah 1; angka baru ini memiliki faktor prima yang bertentangan dengan asumsi.",Matematika,hard
+Rancang skema partisi database untuk tabel transaksi keuangan berskala sangat besar dengan volume jutaan baris per hari.,Terapkan partisi berbasis range waktu bulanan pada kolom tanggal transaksi dan tambahkan sub-partisi hash pada ID pengguna.,Basis Data,hard
+Analisis peran protein histon dalam pengemasan DNA sel eukariotik menjadi kromatin.,"Histon bermuatan positif mengikat DNA bermuatan negatif untuk membentuk nukleosom, yang kemudian dikompaktasikan menjadi serat kromatin.",Biologi,hard
+Rancang arsitektur microservices yang tahan terhadap kegagalan jaringan menggunakan pola circuit breaker.,"Gunakan library penanganan patah koneksi untuk memantau kegagalan layanan; jika melampaui batas, sirkuit terbuka dan mengembalikan fallback.",Ilmu Komputer,hard
+Evaluasi taktik pertahanan perang gerilya Jenderal Sudirman selama Agresi Militer Belanda II.,Sudirman menggunakan taktik berpindah-pindah markas di hutan untuk menghindari serangan langsung dan menguras energi pasukan Belanda.,Sejarah,hard
+Selesaikan persamaan diferensial linear homogen orde kedua dengan koefisien konstan menggunakan persamaan karakteristik.,"Bentuk persamaan kuadrat karakteristik, cari akar-akarnya (nyata, berulang, atau kompleks), lalu susun kombinasi linear solusinya.",Matematika,hard
+Who is known as the father of modern physics?,"Albert Einstein or Galileo Galilei depending on the context, but Isaac Newton and Galileo are primary pioneers.",Physics,easy
+What is the boiling point of pure water in Celsius?,100 degrees Celsius.,Physics,easy
+What is the speed of light in a vacuum?,"Approximately 299,792 kilometers per second.",Physics,easy
+Name the three subatomic particles in an atom.,"Protons, neutrons, and electrons.",Physics,easy
+What is an element in chemistry?,A pure substance consisting of only one type of atom.,Chemistry,easy
+Define the concept of pH in chemistry.,A measure of how acidic or basic a water-based solution is.,Chemistry,easy
+What is the symbol for gold in the periodic table?,Au.,Chemistry,easy
+What is a chemical reaction?,A process that leads to the chemical transformation of one set of chemical substances to another.,Chemistry,easy
+Name the capital city of Australia.,Canberra.,Geography,easy
+What is the largest ocean on Earth?,The Pacific Ocean.,Geography,easy
+Which planet is closest to the Sun?,Mercury.,Geography,easy
+What is the currency used in Japan?,Japanese Yen.,Geography,easy
+What is the Turing test in computer science?,"A test of a machine's ability to exhibit intelligent behavior equivalent to, or indistinguishable from, that of a human.",Artificial Intelligence,easy
+What is natural language processing?,"A subfield of AI that helps computers understand, interpret and manipulate human language.",Artificial Intelligence,easy
+Define deep learning.,A subset of machine learning based on artificial neural networks with multiple layers.,Artificial Intelligence,easy
+What is a chatbot?,A software application used to conduct an on-line chat conversation via text or text-to-speech.,Artificial Intelligence,easy
+What is the role of a web browser?,"To retrieve, present, and traverse information resources on the World Wide Web.",Web Development,easy
+What is CSS used for?,To style and lay out web pages.,Web Development,easy
+Name the three pillars of web design.,"Usability, aesthetics, and technology.",Web Development,easy
+What does HTTP stand for?,Hypertext Transfer Protocol.,Web Development,easy
+Explain the differences between ionic and covalent chemical bonds.,"Ionic bonds transfer electrons between atoms, while covalent bonds involve the sharing of electrons.",Chemistry,medium
+Describe the process of acid-base neutralization.,"An acid and a base react to form water and a salt, neutralizing the relative pH.",Chemistry,medium
+Explain how catalysts speed up chemical reactions.,By lowering the activation energy required for the reaction to occur without being consumed.,Chemistry,medium
+How does temperature affect the solubility of a solid in water?,"Generally, increasing the temperature increases the solubility of a solid solute in water.",Chemistry,medium
+Explain how tectonic plates move and cause earthquakes.,Convection currents in the mantle slide plates past each other; friction causes stress buildup which releases as seismic waves.,Geography,medium
+Describe the difference between weather and climate.,Weather is short-term atmospheric conditions; climate is the average of weather conditions over a long period.,Geography,medium
+Explain the green house effect and its impact on Earth.,"Gases trap infrared heat in the atmosphere, keeping Earth warm enough for life but causing warming when excessive.",Geography,medium
+How does ocean current circulation distribute heat globally?,"Warm water travels from the equator to the poles, and cold water returns, regulating global climate.",Geography,medium
+Explain how an artificial neural network processes input data.,"By multiplying input vectors by weights, adding biases, passing through activation functions, and propagating values.",Artificial Intelligence,medium
+Describe the difference between regression and classification tasks.,"Regression predicts continuous numerical values, whereas classification predicts discrete class labels.",Artificial Intelligence,medium
+How does a decision tree algorithm split nodes during training?,By selecting features that maximize information gain or minimize Gini impurity at each step.,Artificial Intelligence,medium
+Explain the concept of reinforcement learning using an agent.,An agent learns to make decisions in an environment by performing actions and receiving rewards or penalties.,Artificial Intelligence,medium
+Explain the difference between absolute and relative positioning in CSS.,Relative positioning is relative to its normal position; absolute is relative to the nearest positioned ancestor.,Web Development,medium
+How does a standard REST API communicate with client applications?,"Using HTTP request methods (GET, POST, PUT, DELETE) and exchanging JSON or XML data representations.",Web Development,medium
+Describe the purpose of using cookies and local storage.,"Cookies store small session identifier data sent with HTTP requests, while local storage stores larger client-only data.",Web Development,medium
+Explain how CSS flexbox simplifies responsive layout alignment.,It provides a one-dimensional layout model that automatically distributes space and aligns items along a main axis.,Web Development,medium
+Explain the difference between mass and weight of an object.,Mass is the amount of matter in an object; weight is the force exerted on that mass by gravity.,Physics,medium
+Describe how electromagnetic waves propagate through space.,Through self-propagating oscillating electric and magnetic fields traveling perpendicular to each other at the speed of light.,Physics,medium
+How does optical refraction change light direction when passing media?,By altering the speed of light waves when entering a medium of a different optical refractive index.,Physics,medium
+Explain the concept of half-life in radioactive decay.,The time required for half of the radioactive nuclei in a sample to undergo decay.,Physics,medium
+Derive the Schrödinger equation for a particle in a one-dimensional box.,"Set boundary conditions to zero at 0 and L, solve the time-independent wave equation using sin/cos functions, and normalize.",Physics,hard
+Critically assess how Einstein's theory of general relativity explains gravitational lensing.,"Mass curves space-time, which bends the geodesic path of passing photons, magnifying and distorting background star light.",Physics,hard
+Optimize a thermodynamic cycle for maximum efficiency under extreme high temperature limits.,"Maximize hot reservoir heat input, minimize exhaust cooling, and utilize materials that resist structural failures.",Physics,hard
+Analyze the quantum mechanical tunneling effect through a potential barrier.,"Solve wave equations inside and outside the barrier, proving non-zero transmission probability despite E < V.",Physics,hard
+Derive the rate law for a second-order reaction with two different reactants.,Integrate 1/([A]-[B]) * ln([B][A_0]/[A][B_0]) = kt based on stoichiometric consumption differentials.,Chemistry,hard
+Analyze the molecular geometry of coordinate covalent complexes using ligand field theory.,Map d-orbital splitting patterns (t2g and eg) in octahedral fields to estimate strong or weak spin configurations.,Chemistry,hard
+Optimize a chemical synthesis process for yield and energy efficiency in industry.,"Implement heat integration exchangers, recycle unreacted reagents, and deploy high-selectivity zeolite catalysts.",Chemistry,hard
+Prove the law of conservation of momentum using Newton's laws of motion.,"Deduce that since action equals reaction (F12 = -F21), the net impulse is zero, keeping the total derivative of momentum zero.",Physics,hard
+Evaluate how global climate feedback loops accelerate polar ice cap melting rates.,"Ice loss decreases planetary albedo, leading to higher solar absorption, warmer oceans, and further accelerated ice collapse.",Geography,hard
+Analyze the spatial distribution of economic trade networks under gravity models.,Trade volume scales proportionally with GDP sizes of trading partners and inversely with geographic distance variables.,Geography,hard
+Design a geographic information system database schema optimized for real-time spatial queries.,"Utilize R-tree coordinate index spatial bounds, partition tables by geography zones, and pre-compute spatial joins.",Geography,hard
+Critically assess the geological factors contributing to massive volcanic caldera collapses.,"Rapid magma chamber evacuation, high-viscosity silicic compositions, and tectonic fractures causing structural failure.",Geography,hard
+Optimize a deep convolutional neural network for real-time inference on mobile hardware.,"Apply structural channel pruning, integer quantization (INT8), and replace standard convolutions with depthwise separable filters.",Artificial Intelligence,hard
+Design a multi-agent reinforcement learning system to manage autonomous traffic grids.,Deploy localized actor-critic networks with sparse global communication protocols to resolve resource allocation bottlenecks.,Artificial Intelligence,hard
+Analyze how attention mechanisms in transformers mitigate long-range sequence dependencies.,"By performing dot-product similarity between query and key vectors, allowing direct connection across all tokens.",Artificial Intelligence,hard
+Critically assess the ethical implications and biases in generative AI models.,"Identify toxic representation in training corpuses, copyright infringement risks, and systemic reinforcement of stereotypes.",Artificial Intelligence,hard
+Optimize a React application experiencing layout thrashing during heavy scrolling events.,"Implement virtualized list nodes, throttle scroll handlers, batch state commits, and offload calculations to requestAnimationFrame.",Web Development,hard
+Design a micro-frontend architecture for a highly scalable enterprise dashboard application.,"Leverage Webpack Module Federation, establish decoupled build pipelines, and construct isolated custom event bus bridges.",Web Development,hard
+Implement a custom virtual DOM diffing algorithm with linear time complexity.,"Deploy key-based element tracking, bypass deep subtree recursion for identical tag names, and utilize fiber reconcilers.",Web Development,hard
+Critically evaluate the security vulnerabilities of JSON Web Token (JWT) storage.,"Compare local storage XSS theft risk against HTTPOnly Secure cookies CSRF exposure, recommending custom double-token mitigations.",Web Development,hard
+Siapakah penemu benua Asia yang tercatat dalam sejarah?,"Benua Asia tidak ditemukan oleh satu orang saja karena dihuni sejak pra-sejarah, namun pelancong seperti Marco Polo mencatatnya ke dunia luar.",Sejarah,easy
+Apa nama ibukota negara Jepang?,Tokyo.,Geografi,easy
+Berapakah jumlah provinsi di pulau Jawa sekarang?,"Ada 6 provinsi: Banten, DKI Jakarta, Jawa Barat, Jawa Tengah, DI Yogyakarta, dan Jawa Timur.",Geografi,easy
+Apa fungsi utama dari paru-paru manusia?,Untuk pertukaran gas oksigen dari udara bebas dengan karbon dioksida dari darah.,Biologi,easy
+Apakah lambang kimia untuk unsur air?,H2O.,Kimia,easy
+Apa yang dimaksud dengan atom?,Unit terkecil dari suatu unsur kimia yang mempertahankan sifat kimia dari unsur tersebut.,Kimia,easy
+Berapakah suhu titik didih air pada tekanan normal?,100 derajat Celsius.,Fisika,easy
+Apa yang dimaksud dengan gaya magnet?,Gaya tarik atau gaya tolak yang dihasilkan oleh benda yang memiliki sifat magnet.,Fisika,easy
+Apa nama galaksi tempat tata surya kita berada?,Galaksi Bima Sakti (Milky Way).,Fisika,easy
+Siapa penemu telepon pertama kali?,Alexander Graham Bell.,Sejarah,easy
+Apa kepanjangan dari CPU pada komputer?,Central Processing Unit.,Ilmu Komputer,easy
+Berapa hasil dari 8 dikali 7?,Hasilnya adalah 56.,Matematika,easy
+Apa fungsi utama dari website?,Untuk menyajikan informasi dan layanan kepada pengguna melalui jaringan internet.,Teknologi Informasi,easy
+Apa singkatan dari IP Address?,Internet Protocol Address.,Jaringan Komputer,easy
+Siapakah presiden kedua Republik Indonesia?,Jenderal Besar TNI (Purn.) H. M. Soeharto.,Sejarah,easy
+Apa fungsi utama dari akar pada tumbuhan?,Menyerap air dan unsur hara dari dalam tanah serta menopang tegaknya tumbuhan.,Biologi,easy
+Berapa jumlah hari dalam satu tahun kabisat?,366 hari.,Geografi,easy
+Apa nama mata uang negara Malaysia?,Ringgit.,Geografi,easy
+Siapakah pencipta lagu kebangsaan Indonesia Raya?,Wage Rudolf Soepratman.,Sejarah,easy
+Apa fungsi utama dari keyboard komputer?,"Alat input untuk mengetik huruf, angka, dan perintah ke dalam sistem komputer.",Ilmu Komputer,easy
+Jelaskan perbedaan antara ikatan ionik dan ikatan kovalen.,"Ikatan ionik terjadi karena serah terima elektron, sedangkan ikatan kovalen terjadi karena penggunaan bersama pasangan elektron.",Kimia,medium
+Bagaimana proses fotosintesis menghasilkan oksigen pada tumbuhan?,Melalui fotolisis air pada reaksi terang di mana energi cahaya memecah molekul air menjadi hidrogen dan oksigen bebas.,Biologi,medium
+Jelaskan konsep dasar hukum kekekalan massa dalam kimia.,Massa zat sebelum reaksi kimia selalu sama dengan massa zat sesudah reaksi kimia.,Kimia,medium
+Bagaimana cara kerja termometer dalam mengukur suhu benda?,Menggunakan prinsip pemuaian zat cair di dalam tabung kaca ketika menyerap panas dari benda yang diukur.,Fisika,medium
+Jelaskan bagaimana lempeng tektonik bergerak dan menyebabkan gempa bumi.,Arus konveksi magma menggerakkan lempeng; gesekan di perbatasan lempeng menumpuk energi yang tiba-tiba terlepas.,Geografi,medium
+Bagaimana perbedaan antara cuaca dan iklim di bumi?,Cuaca adalah kondisi atmosfer harian di wilayah sempit; iklim adalah rata-rata cuaca jangka panjang di wilayah luas.,Geografi,medium
+Jelaskan dampak pemanasan global terhadap kenaikan permukaan air laut.,"Suhu hangat mencairkan gletser kutub dan memicu pemuaian termal air laut, menyebabkan kenaikan permukaan laut global.",Geografi,medium
+Bagaimana cara kerja dinamo sepeda dalam menghasilkan listrik?,"Putaran roda memutar magnet di dekat kumparan kabel, memicu induksi elektromagnetik yang menghasilkan arus bolak-balik.",Fisika,medium
+Jelaskan bagaimana algoritma pencarian linear bekerja pada array data.,Memeriksa setiap elemen data satu per satu dari awal hingga akhir sampai elemen yang dicari ditemukan.,Ilmu Komputer,medium
+Jelaskan konsep dasar pemrograman berorientasi objek tentang enkapsulasi.,Membungkus data dan metode ke dalam satu unit (kelas) dan menyembunyikan detail akses variabel sensitif.,Ilmu Komputer,medium
+Bagaimana cara kerja memori cache dalam mempercepat pemrosesan data?,Menyimpan salinan instruksi yang sering diakses agar CPU tidak perlu mengambilnya dari RAM yang lebih lambat.,Ilmu Komputer,medium
+Jelaskan perbedaan antara data primer dan data sekunder dalam penelitian.,"Data primer diperoleh langsung dari subjek pertama (wawancara, survei), sedangkan data sekunder diperoleh dari dokumen arsip.",Sejarah,medium
+Bagaimana pengaruh Revolusi Prancis terhadap sistem pemerintahan di Eropa?,"Meruntuhkan sistem monarki absolut dan menyebarkan ideologi demokrasi, nasionalisme, serta liberalisme secara masif.",Sejarah,medium
+Jelaskan bagaimana gaya gesek dapat menghambat gerak suatu benda.,Gaya gesek bekerja berlawanan arah dengan arah gerak benda akibat interaksi kasar antara kedua permukaan.,Fisika,medium
+Bagaimana cara menghitung luas permukaan kubus jika diketahui rusuknya?,Kalikan luas salah satu bidang sisi (s kuadrat) dengan jumlah total sisi kubus yaitu 6 (Luas = 6 * s^2).,Matematika,medium
+Jelaskan perbedaan antara pembelahan mitosis dan pembelahan meiosis.,"Mitosis untuk pertumbuhan somatis (2n menghasilkan 2n), sedangkan meiosis untuk reproduksi gamet (2n menghasilkan n).",Biologi,medium
+Bagaimana proses pembentukan batuan sedimen terjadi di alam?,"Melalui proses pelapukan batuan asal, transportasi oleh air/angin, pengendapan, dan litifikasi sedimentasi.",Geografi,medium
+Jelaskan bagaimana sistem pernapasan manusia mengedarkan oksigen.,"Udara masuk ke alveolus, oksigen berdifusi ke pembuluh kapiler darah dan diikat oleh hemoglobin untuk disalurkan jantung.",Biologi,medium
+Jelaskan perbedaan antara pasar tradisional dan pasar modern.,Pasar tradisional menggunakan sistem tawar-menawar harga; pasar modern mencantumkan harga pas dengan kenyamanan terjamin.,Geografi,medium
+Bagaimana pengaruh iklim tropis terhadap keanekaragaman hayati Indonesia?,Curah hujan tinggi dan sinar matahari melimpah sepanjang tahun menciptakan ekosistem hutan hujan tropis yang kaya flora-fauna.,Biologi,medium
+Rancang arsitektur jaringan komputer yang aman untuk perusahaan dengan cabang terdistribusi.,"Bangun VPN IPSec site-to-site terlindung firewall next-gen, terapkan segmentasi VLAN, serta autentikasi multi-faktor.",Jaringan Komputer,hard
+Analisis dampak kebijakan moneter bank sentral terhadap tingkat inflasi negara.,"Kenaikan suku bunga menekan peredaran uang, menurunkan tingkat konsumsi masyarakat, sehingga laju kenaikan harga terkendali.",Geografi,hard
+Buktikan rumus luas segitiga menggunakan trigonometri secara analitis.,"Gunakan aturan tinggi h = b * sin(C) dalam persamaan Luas = 1/2 * alas * tinggi, sehingga diperoleh Luas = 1/2 * a * b * sin(C).",Matematika,hard
+Selesaikan persamaan kuadrat menggunakan metode pembagian kuadrat sempurna secara matematis.,"Pindahkan konstanta c ke ruas kanan, bagi dengan koefisien a, tambahkan kuadrat setengah dari b/a ke kedua ruas, lalu akar kuadratkan.",Matematika,hard
+Analisis mekanisme transpor aktif melalui pompa natrium-kalium pada sel eukariotik.,Menggunakan energi hidrolisis ATP untuk memompa 3 ion Na+ keluar sel dan memasukkan 2 ion K+ masuk melawan gradien konsentrasi.,Biologi,hard
+Buktikan hukum kekekalan momentum sudut menggunakan persamaan gerak rotasi.,"Buktikan bahwa jika torsi eksternal total yang bekerja pada sistem adalah nol, maka laju perubahan momentum sudut dL/dt = 0, sehingga L konstan.",Fisika,hard
+Derifasikan rumus medan magnet di sekitar kawat lurus berarus menggunakan hukum Ampere.,"Integrasikan kuat medan magnet B mengelilingi lintasan melingkar tertutup r, lalu samakan dengan mu_0 dikali arus total (B * 2*pi*r = mu_0 * I).",Fisika,hard
+Rancang sistem basis data terdistribusi yang mendukung replikasi multi-master secara real-time.,"Gunakan algoritma sinkronisasi konflik dua arah berbasis timestamp, terapkan quorum consensus, dan gunakan WAL log shipping.",Basis Data,hard
+Analisis dampak runtuhnya imperium Romawi Barat terhadap kemunduran ekonomi Eropa.,"Mengakibatkan disintegrasi jalur perdagangan, hilangnya keamanan mata uang standar, dan memicu feodalisme agraria lokal.",Sejarah,hard
+Buktikan bahwa jumlah sudut dalam segitiga bola selalu lebih besar dari 180 derajat.,Gunakan teorema Gauss-Bonnet pada ruang dengan kelengkungan positif di mana jumlah sudut dikurangi pi sama dengan integral kelengkungan permukaan.,Matematika,hard
+Rancang sistem kecerdasan buatan berbasis deep learning untuk mendeteksi penyakit tanaman padi.,"Gunakan arsitektur ResNet50 yang dilatih dengan citra penyakit daun padi, terapkan transfer learning, dan deploy API via FastAPI.",Kecerdasan Buatan,hard
+Analisis bagaimana mekanisme pertahanan tubuh manusia melawan infeksi virus SARS-CoV-2.,"Sel APC mempresentasikan antigen ke T-helper, memicu diferensiasi sel B memproduksi antibodi penetralisir spike protein.",Biologi,hard
+Evaluasi dampak sosial ekonomi dari pembangunan infrastruktur jalan tol lintas Jawa.,Mempercepat waktu logistik antar kota besar namun mendegradasi perekonomian lokal UMKM di sepanjang jalur jalan arteri nontol.,Geografi,hard
+Rancang algoritma enkripsi data yang aman terhadap serangan komputer kuantum.,Gunakan skema kriptografi berbasis kisi (lattice-based cryptography) seperti kerangka kerja NTRU atau algoritma Learning With Errors.,Ilmu Komputer,hard
+Selesaikan persamaan diferensial parsial untuk aliran panas satu dimensi secara analitis.,"Gunakan metode pemisahan variabel u(x,t) = X(x)T(t), selesaikan persamaan diferensial biasa masing-masing, dan terapkan deret Fourier.",Matematika,hard
+Analisis peran mikroba tanah dalam siklus biogeokimia nitrogen secara molekuler.,Bakteri Rhizobium mengekspresikan enzim nitrogenase untuk memecah gas N2 menjadi NH3 yang dapat diserap langsung oleh tumbuhan legum.,Biologi,hard
+Derifasikan hukum ketiga Kepler tentang gerakan planet berdasarkan hukum gravitasi Newton.,"Samakan gaya gravitasi F = GMm/r^2 dengan gaya sentripetal F = m * omega^2 * r, substitusikan omega = 2*pi/T untuk membuktikan T^2 sebanding r^3.",Fisika,hard
+Rancang mekanisme load balancing otomatis untuk microservices dengan lalu lintas tinggi.,Deploy ingress controller berbasis Nginx/Envoy terintegrasi metrik Prometheus untuk meregulasi beban berdasarkan utilitas CPU kontainer.,Ilmu Komputer,hard
+Analisis dampak Perang Dingin terhadap penyebaran ideologi politik di Asia Tenggara.,Memicu pecahnya perang saudara proxy di Vietnam dan pembantaian simpatisan komunis di berbagai negara guna menahan teori domino.,Sejarah,hard
+Buktikan rumus luas permukaan bola secara integral kalkulus.,"Integrasikan elemen cincin silindris rotasi 2 * pi * y * ds menggunakan koordinat polar dari 0 hingga pi, menghasilkan nilai 4 * pi * R^2.",Matematika,hard

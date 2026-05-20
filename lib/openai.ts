@@ -361,11 +361,16 @@ export async function generateQuiz(
           source_reference: { page_number: 2, chunk_index: 1 }
         },
         {
-          question: "Jelaskan prinsip kerja utama dari metode Retrieval-Augmented Generation (RAG) dan mengapa metode ini hemat biaya.",
-          type: "short_answer",
-          options: [],
-          correct_answer: "RAG mencari paragraf relevan dari database vektor untuk dikirim ke LLM sebagai konteks, menghindari pengiriman seluruh dokumen.",
-          explanation: "RAG memetakan konten dokumen ke dalam ruang vektor, melakukan pencarian kemiripan Cosine, dan hanya mengirimkan 3-5 potongan paragraf teratas yang relevan sebagai konteks. Hal ini sangat menghemat penggunaan token.",
+          question: "Manakah di bawah ini yang merupakan keuntungan utama dari menggunakan metode Retrieval-Augmented Generation (RAG)?",
+          type: "multiple_choice",
+          options: [
+            "Menghindari pengiriman seluruh dokumen ke LLM dengan hanya mengirimkan paragraf relevan",
+            "Meningkatkan parameter model LLM secara langsung tanpa retraining",
+            "Mengganti seluruh kebutuhan LLM dengan database relasional biasa",
+            "Mempercepat waktu pelatihan model pembelajaran mesin dasar dari nol"
+          ],
+          correct_answer: "Menghindari pengiriman seluruh dokumen ke LLM dengan hanya mengirimkan paragraf relevan",
+          explanation: "RAG memetakan konten dokumen ke dalam ruang vektor, melakukan pencarian kemiripan Cosine, dan hanya mengirimkan beberapa potongan paragraf teratas yang paling relevan sebagai konteks. Hal ini sangat menghemat penggunaan token dan biaya.",
           difficulty: "hard",
           topic: "Pipa RAG",
           source_reference: { page_number: 3, chunk_index: 0 }
@@ -430,11 +435,16 @@ export async function generateQuiz(
         source_reference: { page_number: 2, chunk_index: 1 }
       },
       {
-        question: "Describe the core mechanism of Retrieval-Augmented Generation (RAG) and why it is cost-efficient.",
-        type: "short_answer",
-        options: [],
-        correct_answer: "RAG retrieves only the top relevant chunks from a vector database and sends them to OpenAI, avoiding sending the entire PDF file.",
-        explanation: "RAG maps chunks to vector spaces, performs cosine similarity searches, and routes only the top 3-5 matches as context, conserving tokens.",
+        question: "What is the primary cost-efficiency benefit of using Retrieval-Augmented Generation (RAG)?",
+        type: "multiple_choice",
+        options: [
+          "It retrieves only top relevant chunks from a vector database instead of sending the entire PDF",
+          "It completely eliminates the need for any high-dimensional vector embeddings",
+          "It automatically fine-tunes the base LLM model parameters on client browsers",
+          "It reduces neural network complexity by pruning unimportant layers in real time"
+        ],
+        correct_answer: "It retrieves only top relevant chunks from a vector database instead of sending the entire PDF",
+        explanation: "RAG maps chunks to vector spaces, performs cosine similarity searches, and routes only the top 3-5 matches as context, avoiding sending large documents and saving significant token costs.",
         difficulty: "hard",
         topic: "RAG Pipeline",
         source_reference: { page_number: 3, chunk_index: 0 }

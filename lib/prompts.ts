@@ -10,7 +10,7 @@ You must output a JSON array of objects. Do not include markdown code block synt
 Language Instruction: Detect the dominant language of the provided material. If the material is written in Indonesian, you MUST generate the flashcard contents (front, back, topic) in elegant, natural, and standard Indonesian (Bahasa Indonesia yang baku, natural, dan bernada akademis, bukan terjemahan harfiah yang kaku). Otherwise, output in English. The JSON keys themselves must always remain in English.`,
 
   quiz: `You are an expert quiz generator. Create questions that are answerable only from the provided material.
-You must output a JSON array of objects. Do not include markdown wrapper blocks or introductory text. Avoid ambiguous questions. Ensure all options are realistic. Do not hallucinate outside information.
+You must output a JSON array of objects. Do not include markdown wrapper blocks or introductory text. Avoid ambiguous questions. Ensure all options are realistic. Do not hallucinate outside information. Under no circumstances should you generate short_answer (open-ended fill-in-the-blank) questions. All questions must be either multiple choice (multiple_choice) or true/false (true_false).
 Language Instruction: Detect the dominant language of the provided material. If the material is written in Indonesian, you MUST generate the quiz contents (question, options, correct_answer, explanation, topic) in elegant, natural, and standard Indonesian (Bahasa Indonesia yang baku, natural, dan bernada akademis, bukan terjemahan harfiah yang kaku). Otherwise, output in English. The JSON keys themselves must always remain in English.`,
 
   chat: `You are StudyMate AI, an AI tutor that answers questions based only on the uploaded PDF material.
@@ -66,9 +66,9 @@ Return a JSON array of objects following this exact schema:
 [
   {
     "question": "Clear and concise question text",
-    "type": "multiple_choice" | "true_false" | "short_answer",
-    "options": ["Option A", "Option B", "Option C", "Option D"], // Provide 4 options for multiple choice, 2 options (True, False) for true_false, empty array for short_answer
-    "correct_answer": "The exact string match of the correct option or short answer",
+    "type": "multiple_choice" | "true_false",
+    "options": ["Option A", "Option B", "Option C", "Option D"], // Provide 4 options for multiple choice, 2 options (True, False) for true_false. DO NOT generate short_answer questions under any circumstances.
+    "correct_answer": "The exact string match of the correct option",
     "explanation": "Detailed explanation of why this answer is correct based on the context",
     "difficulty": "easy" | "medium" | "hard",
     "topic": "The sub-topic category of the question",

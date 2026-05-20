@@ -79,6 +79,11 @@ export interface QuizQuestion {
     page_number: number
     chunk_index: number
   }
+  ml_verification?: {
+    predicted_difficulty: "easy" | "medium" | "hard"
+    confidence: number
+    method: string
+  }
   created_at: string
 }
 

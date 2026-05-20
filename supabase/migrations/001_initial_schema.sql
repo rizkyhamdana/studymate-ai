@@ -82,6 +82,7 @@ create table if not exists quiz_questions (
   difficulty text not null default 'medium', -- easy, medium, hard
   topic text not null,
   source_reference jsonb, -- { "page_number": 1, "chunk_index": 0 }
+  ml_verification jsonb, -- { "predicted_difficulty": "easy", "confidence": 0.95, "method": "ml_model" }
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 

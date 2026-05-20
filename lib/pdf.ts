@@ -1,5 +1,8 @@
 import { cleanText } from "./chunking"
 import { isIndonesian } from "./language"
+import { execSync } from "child_process"
+import fs from "fs"
+import path from "path"
 
 export interface PDFPage {
   page_number: number
@@ -8,49 +11,71 @@ export interface PDFPage {
 
 /**
  * Parses a PDF file's ArrayBuffer and extracts text on a page-by-page basis.
- * In a pure client-side/server-side zero-dependency context, this function
- * extracts text lines using text decoding heuristics or generates a rich,
- * high-fidelity mock study guide based on the file name to keep the UX 100% functional.
+ * Uses a robust Python subprocess that invokes PyMuPDF (fitz) or pdfplumber,
+ * and falls back to a high-fidelity mock study guide only if execution fails.
  */
 export async function extractTextFromPDF(
   buffer: ArrayBuffer,
   fileName: string
 ): Promise<PDFPage[]> {
+  const projectRoot = path.resolve(process.cwd())
+  const scratchDir = path.join(projectRoot, "scratch")
+  const tempFileName = `temp_upload_${Date.now()}_${Math.random().toString(36).slice(2, 7)}.pdf`
+  const tempFilePath = path.join(scratchDir, tempFileName)
+
   try {
-    // Attempt basic text extraction from binary stream (if simple ASCII text exists in streams)
-    const decoder = new TextDecoder("utf-8")
-    const fullText = decoder.decode(buffer)
-    
-    // Simple heuristic: search for PDF text operators
-    const textMatches = fullText.match(/\(([^)]+)\)\s*Tj/g)
-    
-    if (textMatches && textMatches.length > 50) {
-      console.log("Extracted raw text strings using binary scan heuristics.")
-      const parsedText = textMatches
-        .map(m => m.slice(1, -4))
-        .join(" ")
-        .replace(/\\([()])/g, "$1") // Unescape parenthesis
-      
-      // Split into 3 arbitrary pages to simulate paging
-      const words = parsedText.split(" ")
-      const wordsPerPage = Math.floor(words.length / 3)
-      return [
-        {
-          page_number: 1,
-          text: cleanText(words.slice(0, wordsPerPage).join(" "))
-        },
-        {
-          page_number: 2,
-          text: cleanText(words.slice(wordsPerPage, wordsPerPage * 2).join(" "))
-        },
-        {
-          page_number: 3,
-          text: cleanText(words.slice(wordsPerPage * 2).join(" "))
-        }
-      ]
+    // 1. Ensure scratch directory exists
+    if (!fs.existsSync(scratchDir)) {
+      fs.mkdirSync(scratchDir, { recursive: true })
     }
-  } catch (err) {
-    console.warn("Binary text scan failed. Activating high-fidelity simulation engine.", err)
+
+    // 2. Write buffer to temporary PDF file
+    fs.writeFileSync(tempFilePath, Buffer.from(buffer))
+
+    // 3. Resolve python command: use local venv python if available, otherwise fallback to system python3
+    let pythonBin = "python3"
+    const venvPaths = [
+      path.join(projectRoot, ".venv", "bin", "python"),
+      path.join(projectRoot, "venv", "bin", "python"),
+      path.join(projectRoot, "env", "bin", "python")
+    ]
+    for (const vp of venvPaths) {
+      if (fs.existsSync(vp)) {
+        pythonBin = vp
+        break
+      }
+    }
+
+    // 4. Run the python pdf_extractor subprocess
+    const escapedFilePath = tempFilePath.replace(/\\/g, "\\\\").replace(/'/g, "\\'")
+    const cmd = `"${pythonBin}" -c "import sys; sys.path.append('${projectRoot}'); from ml.src.pdf_extractor import extract_text_from_pdf; import json; print(json.dumps(extract_text_from_pdf('${escapedFilePath}')))"`
+    
+    console.log(`Executing Python PDF extraction subprocess for ${fileName}...`)
+    const stdout = execSync(cmd, { cwd: projectRoot, timeout: 15000 }).toString()
+    
+    // Parse output JSON
+    const extractedPages = JSON.parse(stdout)
+    
+    // 5. Clean up temporary file
+    if (fs.existsSync(tempFilePath)) {
+      fs.unlinkSync(tempFilePath)
+    }
+
+    if (Array.isArray(extractedPages) && extractedPages.length > 0) {
+      console.log(`Successfully extracted ${extractedPages.length} pages using Python subprocess.`)
+      return extractedPages.map((p: any) => ({
+        page_number: p.page_number,
+        text: cleanText(p.text)
+      }))
+    }
+  } catch (err: any) {
+    console.warn("Python PDF extraction subprocess failed. Running resilient mock simulation engine fallback. Details:", err.message)
+    // Clean up temporary file in case of error
+    try {
+      if (fs.existsSync(tempFilePath)) {
+        fs.unlinkSync(tempFilePath)
+      }
+    } catch (_) {}
   }
 
   // High-Fidelity Study Guide Simulation

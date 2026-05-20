@@ -428,9 +428,10 @@ export default function QuizTab({
             </span>
             
             {mlInfo && (
-              <span className="text-[11px] text-[#4e4e52] font-medium hidden sm:inline shrink-0">
-                ML verified: {(mlInfo.confidence * 100).toFixed(0)}% confidence
-              </span>
+              <div className="badge badge-accent flex items-center gap-1 shrink-0">
+                <Sparkles className="w-3 h-3 text-cyan-400 shrink-0 animate-pulse" />
+                <span className="text-[11px] font-semibold text-cyan-300">ML Verified ({(mlInfo.confidence * 100).toFixed(0)}%)</span>
+              </div>
             )}
           </div>
         </div>

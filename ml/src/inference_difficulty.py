@@ -1,4 +1,11 @@
 import os
+import sys
+
+# Ensure the project root is in sys.path so that joblib can unpickle custom classes under the 'ml' module
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
 import joblib
 import numpy as np
 

@@ -46,11 +46,25 @@ function verifyDifficultyWithML(question: string, topic = "General"): { difficul
     const scriptPath = path.join(projectRoot, "ml", "src", "inference_difficulty.py")
     
     if (fs.existsSync(scriptPath)) {
+      // Safely select the python command: use local venv python if available, otherwise fallback to system python3
+      let pythonBin = "python3"
+      const venvPaths = [
+        path.join(projectRoot, ".venv", "bin", "python"),
+        path.join(projectRoot, "venv", "bin", "python"),
+        path.join(projectRoot, "env", "bin", "python")
+      ]
+      for (const vp of venvPaths) {
+        if (fs.existsSync(vp)) {
+          pythonBin = vp
+          break
+        }
+      }
+
       // Escape arguments safely for CLI execution
       const escapedQuestion = question.replace(/"/g, '\\"').replace(/'/g, "\\'")
       const escapedTopic = topic.replace(/"/g, '\\"').replace(/'/g, "\\'")
       
-      const cmd = `python3 -c "import sys; sys.path.append('${projectRoot}'); from ml.src.inference_difficulty import predict_difficulty; print(predict_difficulty('${escapedQuestion}', '${escapedTopic}'))"`
+      const cmd = `"${pythonBin}" -c "import sys; sys.path.append('${projectRoot}'); from ml.src.inference_difficulty import predict_difficulty; print(predict_difficulty('${escapedQuestion}', '${escapedTopic}'))"`
       
       const stdout = execSync(cmd, { cwd: projectRoot, timeout: 4000 }).toString()
       // Parse output dictionary representation (e.g. {'question': ..., 'predicted_difficulty': 'easy', 'confidence': 0.61, 'method': 'ml_model'})
@@ -66,8 +80,13 @@ function verifyDifficultyWithML(question: string, topic = "General"): { difficul
         }
       }
     }
-  } catch (err) {
-    console.warn("Python ML Classifier shell invocation failed. Running local fallback.", err)
+  } catch (err: any) {
+    console.warn(
+      `Python ML Classifier shell invocation failed. Running local fallback. Details:\n` +
+      `Command output: ${err.stdout?.toString() || ""}\n` +
+      `Command error: ${err.stderr?.toString() || ""}\n` +
+      `Exception message: ${err.message || err}`
+    );
   }
 
   // Graceful Local Fallback

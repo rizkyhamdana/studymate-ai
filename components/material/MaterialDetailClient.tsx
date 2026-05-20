@@ -398,73 +398,126 @@ export default function MaterialDetailClient({
       {/* Tab Content with smooth fade-in and micro-transition */}
       <div className="relative min-h-[300px]">
         {loading ? (
-          <motion.div
-            key={`skeleton-${activeTab}`}
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.1, ease: "easeOut" }}
-          >
-            {renderTabSkeleton()}
-          </motion.div>
-        ) : sectionLoading[activeTab] ? (
-          <motion.div
-            key={`section-loading-${activeTab}`}
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.1, ease: "easeOut" }}
-          >
-            {renderTabSkeleton()}
-          </motion.div>
+          <OverviewSkeleton />
         ) : (
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.1, ease: "easeOut" }}
-          >
-            {activeTab === "overview" && material && (
-              <OverviewTab
-                material={material}
-                summary={summary}
-                overviewStats={overviewStats}
-                setActiveTab={setActiveTab}
-              />
+          <>
+            {/* Show skeleton when a section is loading */}
+            {sectionLoading[activeTab] && (
+              <motion.div
+                key={`skeleton-${activeTab}`}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.1, ease: "easeOut" }}
+              >
+                {renderTabSkeleton()}
+              </motion.div>
             )}
-            {activeTab === "summary" && material && (
-              <SummaryTab
-                material={material}
-                summary={summary}
-                onSummaryUpdated={handleSummaryUpdated}
-              />
-            )}
-            {activeTab === "flashcards" && material && (
-              <FlashcardsTab
-                material={material}
-                flashcards={flashcards}
-                onFlashcardUpdated={handleFlashcardUpdated}
-              />
-            )}
-            {activeTab === "quiz" && material && (
-              <QuizTab
-                material={material}
-                quizzes={quizzes}
-                onQuizAdded={handleQuizAdded}
-              />
-            )}
-            {activeTab === "chat" && material && (
-              <ChatTab
-                material={material}
-                initialMessages={chatMessages}
-                onMessageAdded={(newMsg) => setChatMessages(prev => [...prev, newMsg])}
-              />
-            )}
-            {activeTab === "sources" && material && (
-              <SourcesTab
-                material={material}
-                chunks={chunks}
-              />
-            )}
-          </motion.div>
+
+            {/* Render the tabs in a persistent container, hidden if current active tab is loading */}
+            <div className="w-full" style={{ display: sectionLoading[activeTab] ? "none" : "block" }}>
+              {/* Overview Tab */}
+              {material && (
+                <div style={{ display: activeTab === "overview" ? "block" : "none" }}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: activeTab === "overview" ? 1 : 0, y: activeTab === "overview" ? 0 : 4 }}
+                    transition={{ duration: 0.1, ease: "easeOut" }}
+                  >
+                    <OverviewTab
+                      material={material}
+                      summary={summary}
+                      overviewStats={overviewStats}
+                      setActiveTab={setActiveTab}
+                    />
+                  </motion.div>
+                </div>
+              )}
+
+              {/* Summary Tab */}
+              {material && loadedSections["summary"] && (
+                <div style={{ display: activeTab === "summary" ? "block" : "none" }}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: activeTab === "summary" ? 1 : 0, y: activeTab === "summary" ? 0 : 4 }}
+                    transition={{ duration: 0.1, ease: "easeOut" }}
+                  >
+                    <SummaryTab
+                      material={material}
+                      summary={summary}
+                      onSummaryUpdated={handleSummaryUpdated}
+                    />
+                  </motion.div>
+                </div>
+              )}
+
+              {/* Flashcards Tab */}
+              {material && loadedSections["flashcards"] && (
+                <div style={{ display: activeTab === "flashcards" ? "block" : "none" }}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: activeTab === "flashcards" ? 1 : 0, y: activeTab === "flashcards" ? 0 : 4 }}
+                    transition={{ duration: 0.1, ease: "easeOut" }}
+                  >
+                    <FlashcardsTab
+                      material={material}
+                      flashcards={flashcards}
+                      onFlashcardUpdated={handleFlashcardUpdated}
+                    />
+                  </motion.div>
+                </div>
+              )}
+
+              {/* Quiz Tab */}
+              {material && loadedSections["quiz"] && (
+                <div style={{ display: activeTab === "quiz" ? "block" : "none" }}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: activeTab === "quiz" ? 1 : 0, y: activeTab === "quiz" ? 0 : 4 }}
+                    transition={{ duration: 0.1, ease: "easeOut" }}
+                  >
+                    <QuizTab
+                      material={material}
+                      quizzes={quizzes}
+                      onQuizAdded={handleQuizAdded}
+                    />
+                  </motion.div>
+                </div>
+              )}
+
+              {/* Chat Tab */}
+              {material && loadedSections["chat"] && (
+                <div style={{ display: activeTab === "chat" ? "block" : "none" }}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: activeTab === "chat" ? 1 : 0, y: activeTab === "chat" ? 0 : 4 }}
+                    transition={{ duration: 0.1, ease: "easeOut" }}
+                  >
+                    <ChatTab
+                      material={material}
+                      initialMessages={chatMessages}
+                      onMessageAdded={(newMsg) => setChatMessages(prev => [...prev, newMsg])}
+                    />
+                  </motion.div>
+                </div>
+              )}
+
+              {/* Sources Tab */}
+              {material && loadedSections["sources"] && (
+                <div style={{ display: activeTab === "sources" ? "block" : "none" }}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: activeTab === "sources" ? 1 : 0, y: activeTab === "sources" ? 0 : 4 }}
+                    transition={{ duration: 0.1, ease: "easeOut" }}
+                  >
+                    <SourcesTab
+                      material={material}
+                      chunks={chunks}
+                    />
+                  </motion.div>
+                </div>
+              )}
+            </div>
+          </>
         )}
       </div>
 

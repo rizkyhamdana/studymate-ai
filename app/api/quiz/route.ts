@@ -95,7 +95,7 @@ function verifyDifficultyWithML(question: string, topic = "General"): { difficul
 
 export async function POST(req: NextRequest) {
   try {
-    const { materialId, count = 3, difficulty = "medium", regenerate = false } = await req.json()
+    const { materialId, count = 5, difficulty = "medium", regenerate = false } = await req.json()
     
     if (!materialId) {
       return NextResponse.json({ error: "Missing material ID parameter" }, { status: 400 })

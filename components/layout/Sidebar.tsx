@@ -34,8 +34,12 @@ export default function Sidebar() {
     <aside className="w-[220px] border-r border-[rgba(255,255,255,0.05)] bg-[#0c0c0e] flex flex-col shrink-0 sticky top-0 h-screen hidden md:flex">
       {/* Logo */}
       <div className="h-16 px-5 border-b border-[rgba(255,255,255,0.05)] flex items-center gap-2.5">
-        <div className="w-8 h-8 rounded-lg bg-[#d4a044] flex items-center justify-center">
-          <span className="text-[#09090b] font-display font-extrabold text-sm">S</span>
+        <div className="w-8 h-8 relative flex items-center justify-center">
+          <img
+            src="/logo.svg"
+            alt="StudyMate AI Logo"
+            className="w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(0,242,254,0.35)] transition-transform duration-300 hover:scale-110"
+          />
         </div>
         <span className="font-display font-bold text-[15px] text-[#ededef] tracking-tight">
           StudyMate

@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#141419" />
+      <stop offset="100%" stop-color="#08080a" />
+    </radialGradient>
+
+    <!-- Ring Gradients -->
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="100%" stop-color="#4facfe" />
+    </linearGradient>
+
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f093fb" />
+      <stop offset="100%" stop-color="#f5576c" stop-opacity="0.8" />
+    </linearGradient>
+
+    <linearGradient id="goldGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f6d365" />
+      <stop offset="100%" stop-color="#fda085" />
+    </linearGradient>
+
+    <!-- Core Sphere Gradient -->
+    <radialGradient id="coreGrad" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="30%" stop-color="#00f2fe" />
+      <stop offset="70%" stop-color="#7f00ff" />
+      <stop offset="100%" stop-color="#000000" />
+    </radialGradient>
+
+    <!-- Glow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-heavy" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="25" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <style>
+    @keyframes spin-cw {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes spin-ccw {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.06); }
+    }
+    @keyframes particle-drift {
+      0%, 100% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(-8px) translateX(5px); }
+    }
+    .ring-cyan {
+      transform-origin: 256px 256px;
+      animation: spin-cw 25s linear infinite;
+    }
+    .ring-purple {
+      transform-origin: 256px 256px;
+      animation: spin-ccw 20s linear infinite;
+    }
+    .ring-gold {
+      transform-origin: 256px 256px;
+      animation: spin-cw 35s linear infinite;
+    }
+    .core-group {
+      transform-origin: 256px 256px;
+      animation: pulse 5s ease-in-out infinite;
+    }
+    .particle-1 {
+      animation: particle-drift 6s ease-in-out infinite;
+    }
+    .particle-2 {
+      animation: particle-drift 8s ease-in-out infinite alternate;
+    }
+  </style>
+
+  <!-- Dark Rounded Rect App Background -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" stroke="#1a1a24" stroke-width="6" />
+
+  <!-- Orbiting Particle Rings -->
+  <g class="ring-cyan" opacity="0.3">
+    <ellipse cx="256" cy="256" rx="180" ry="80" fill="none" stroke="url(#cyanGrad)" stroke-width="3" stroke-dasharray="10, 15, 35, 15" />
+  </g>
+  <g class="ring-purple" opacity="0.3">
+    <ellipse cx="256" cy="256" rx="180" ry="80" fill="none" stroke="url(#purpleGrad)" stroke-width="3" stroke-dasharray="40, 20, 10, 20" />
+  </g>
+
+  <!-- Animated Outer Rings -->
+  <g class="ring-cyan">
+    <ellipse cx="256" cy="256" rx="160" ry="60" fill="none" stroke="url(#cyanGrad)" stroke-width="11" filter="url(#glow)" />
+  </g>
+  <g class="ring-purple">
+    <ellipse cx="256" cy="256" rx="160" ry="60" fill="none" stroke="url(#purpleGrad)" stroke-width="9" filter="url(#glow)" />
+  </g>
+  <g class="ring-gold">
+    <ellipse cx="256" cy="256" rx="140" ry="50" fill="none" stroke="url(#goldGrad)" stroke-width="5" filter="url(#glow)" />
+  </g>
+
+  <!-- Central Glowing Aura & Holographic Core -->
+  <g class="core-group">
+    <circle cx="256" cy="256" r="85" fill="#7f00ff" opacity="0.22" filter="url(#glow-heavy)" />
+    <circle cx="256" cy="256" r="60" fill="#00f2fe" opacity="0.18" filter="url(#glow-heavy)" />
+    <circle cx="256" cy="256" r="65" fill="url(#coreGrad)" filter="url(#glow)" />
+    
+    <!-- Energy Waves Inside Core -->
+    <path d="M 200,256 C 220,220 292,220 312,256 C 292,292 220,292 200,256 Z" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.7" filter="url(#glow)" />
+    <path d="M 210,256 C 225,240 287,240 302,256 C 287,272 225,272 210,256 Z" fill="none" stroke="#00f2fe" stroke-width="1.5" opacity="0.8" />
+  </g>
+
+  <!-- Floating Particles -->
+  <g class="particle-1">
+    <circle cx="160" cy="180" r="4" fill="#ffffff" opacity="0.8" filter="url(#glow)" />
+    <circle cx="360" cy="160" r="3" fill="#f093fb" opacity="0.7" filter="url(#glow)" />
+  </g>
+  <g class="particle-2">
+    <circle cx="340" cy="320" r="5" fill="#00f2fe" opacity="0.9" filter="url(#glow)" />
+    <circle cx="150" cy="340" r="4" fill="#f6d365" opacity="0.8" filter="url(#glow)" />
+  </g>
+  <circle cx="256" cy="110" r="3" fill="#ffffff" opacity="0.6" />
+  <circle cx="220" cy="390" r="4" fill="#00f2fe" opacity="0.5" />
+</svg>

@@ -39,12 +39,7 @@ interface AnalyticsClientProps {
 export default function AnalyticsClient({ stats, attempts }: AnalyticsClientProps) {
   const loading = false
 
-  const masteryData = stats?.topicMastery?.length > 0 ? stats.topicMastery : [
-    { topic: "Model Evaluation", mastery: 85 },
-    { topic: "Databases", mastery: 90 },
-    { topic: "Machine Learning", mastery: 75 },
-    { topic: "Systems Engineering", mastery: 60 }
-  ]
+  const masteryData = stats?.topicMastery?.length > 0 ? stats.topicMastery : []
 
   const trendData = attempts.length > 0
     ? attempts.slice().reverse().map((att, idx) => ({
@@ -52,12 +47,7 @@ export default function AnalyticsClient({ stats, attempts }: AnalyticsClientProp
         score: Math.round((att.score / att.total_questions) * 100),
         avg: stats?.averageQuizScore || 75
       }))
-    : [
-        { index: "Test 1", score: 65, avg: 75 },
-        { index: "Test 2", score: 80, avg: 75 },
-        { index: "Test 3", score: 70, avg: 75 },
-        { index: "Test 4", score: 95, avg: 75 }
-      ]
+    : []
 
   const totalQuestionsAnswered = attempts.reduce((acc, curr) => acc + curr.total_questions, 0)
   const totalCorrectQuestions = attempts.reduce((acc, curr) => acc + curr.score, 0)
@@ -118,8 +108,16 @@ export default function AnalyticsClient({ stats, attempts }: AnalyticsClientProp
                 <div className="spinner mb-2" />
                 <p className="text-xs text-[#85858a]">Loading topic data...</p>
               </div>
-            ) : (
+            ) : masteryData.length > 0 ? (
               <TopicMasteryChart data={masteryData} />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center bg-[rgba(255,255,255,0.01)] border border-dashed border-[rgba(255,255,255,0.05)] rounded-xl p-4 text-center">
+                <TrendingUp className="w-8 h-8 text-[#4e4e52] mb-2 opacity-50" />
+                <span className="text-[13px] font-medium text-[#ededef]">Belum Ada Data Penguasaan Topik</span>
+                <p className="text-[11px] text-[#4e4e52] mt-1 max-w-[240px] mx-auto leading-relaxed">
+                  Kerjakan kuis pilihan ganda pada materi belajar Anda untuk mengukur pemahaman per topik.
+                </p>
+              </div>
             )}
           </div>
         </div>
@@ -140,8 +138,16 @@ export default function AnalyticsClient({ stats, attempts }: AnalyticsClientProp
                 <div className="spinner mb-2" />
                 <p className="text-xs text-[#85858a]">Loading score timeline...</p>
               </div>
-            ) : (
+            ) : trendData.length > 0 ? (
               <ScoreTimelineChart data={trendData} />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center bg-[rgba(255,255,255,0.01)] border border-dashed border-[rgba(255,255,255,0.05)] rounded-xl p-4 text-center">
+                <BarChart3 className="w-8 h-8 text-[#4e4e52] mb-2 opacity-50" />
+                <span className="text-[13px] font-medium text-[#ededef]">Belum Ada Riwayat Nilai</span>
+                <p className="text-[11px] text-[#4e4e52] mt-1 max-w-[240px] mx-auto leading-relaxed">
+                  Tren grafik nilai kuis Anda dari waktu ke waktu akan muncul di sini setelah Anda mulai belajar.
+                </p>
+              </div>
             )}
           </div>
         </div>
@@ -179,10 +185,11 @@ export default function AnalyticsClient({ stats, attempts }: AnalyticsClientProp
                 </div>
               ))
             ) : (
-              <div className="p-4 rounded-lg bg-[#19191d] border border-[rgba(255,255,255,0.05)]">
-                <span className="text-[13px] font-medium text-[#ededef] block">Review Machine Learning</span>
-                <p className="text-xs text-[#4e4e52] mt-0.5">
-                  Run practice quizzes to get personalized review recommendations.
+              <div className="p-4 rounded-lg bg-[#19191d] border border-[rgba(255,255,255,0.05)] text-center py-6">
+                <Sparkles className="w-5 h-5 text-[#d4a044] mx-auto mb-2 opacity-80 animate-pulse" />
+                <span className="text-[13px] font-medium text-[#ededef] block">Rencana Belajar Anda Sedang Menunggu</span>
+                <p className="text-xs text-[#4e4e52] mt-1 max-w-sm mx-auto leading-relaxed">
+                  Unggah file PDF materi, pelajari flashcard, atau kerjakan kuis kustom. Kami akan menganalisis performa Anda untuk membuat rencana belajar yang personal!
                 </p>
               </div>
             )}
@@ -214,11 +221,18 @@ export default function AnalyticsClient({ stats, attempts }: AnalyticsClientProp
                   <span className="badge badge-danger">Needs review</span>
                 </div>
               ))
+            ) : attempts.length > 0 ? (
+              <div className="p-4 rounded-lg bg-[#19191d] border border-dashed border-[rgba(255,255,255,0.08)] text-center py-6">
+                <span className="text-xs font-medium text-emerald-400 block">Sempurna!</span>
+                <p className="text-[11px] text-[#4e4e52] mt-1 leading-relaxed">
+                  Tidak ada topik lemah yang terdeteksi. Pertahankan kinerja luar biasa Anda!
+                </p>
+              </div>
             ) : (
-              <div className="p-4 rounded-lg bg-[#19191d] border border-dashed border-[rgba(255,255,255,0.08)] text-center">
-                <span className="text-xs font-medium text-emerald-400 block">All clear</span>
-                <p className="text-[11px] text-[#4e4e52] mt-1">
-                  No weak areas identified. Keep it up!
+              <div className="p-4 rounded-lg bg-[#19191d] border border-dashed border-[rgba(255,255,255,0.08)] text-center py-6">
+                <span className="text-xs font-medium text-[#85858a] block">Belum Ada Analisis</span>
+                <p className="text-[11px] text-[#4e4e52] mt-1 leading-relaxed">
+                  Kerjakan kuis untuk menganalisis topik pelajaran yang perlu perhatian lebih.
                 </p>
               </div>
             )}

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { 
   Upload, 
@@ -24,6 +24,7 @@ export default function UploadPage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [error, setError] = useState<string | null>(null)
   
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
   const steps = [
@@ -151,6 +152,7 @@ export default function UploadPage() {
               }`}
             >
               <input
+                ref={fileInputRef}
                 type="file"
                 id="file-upload"
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -170,6 +172,10 @@ export default function UploadPage() {
               <button 
                 type="button" 
                 className="btn-ghost relative z-10"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  fileInputRef.current?.click()
+                }}
               >
                 Browse files
               </button>

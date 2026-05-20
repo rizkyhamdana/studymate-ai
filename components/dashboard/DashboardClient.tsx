@@ -52,12 +52,7 @@ export default function DashboardClient({
       score: Math.round((att.score / att.total_questions) * 100)
     }))
 
-  // If no attempts exist, seed standard visual points to ensure the chart is populated
-  const finalChartData = chartData.length > 0 ? chartData : [
-    { index: "Session 1", score: 50 },
-    { index: "Session 2", score: 75 },
-    { index: "Session 3", score: 100 }
-  ]
+  const finalChartData = chartData
 
   const statsCards = [
     { title: "Uploaded Materials", value: stats?.totalMaterials || 0, borderColor: "border-l-[#d4a044]" },
@@ -114,8 +109,16 @@ export default function DashboardClient({
                 <div className="spinner mb-2" />
                 <p className="text-xs text-[#85858a]">Loading chart...</p>
               </div>
-            ) : (
+            ) : finalChartData.length > 0 ? (
               <QuizScoreChart data={finalChartData} />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center bg-[rgba(255,255,255,0.01)] border border-dashed border-[rgba(255,255,255,0.08)] rounded-xl p-6 text-center">
+                <Award className="w-8 h-8 text-[#4e4e52] mb-2 opacity-50 animate-pulse" />
+                <span className="text-[13px] font-medium text-[#ededef]">Belum Ada Riwayat Kuis</span>
+                <p className="text-[11px] text-[#4e4e52] mt-1.5 max-w-[260px] mx-auto leading-relaxed">
+                  Unggah dokumen PDF di atas dan kerjakan latihan kuis pertama Anda untuk mulai memetakan riwayat nilai di sini.
+                </p>
+              </div>
             )}
           </div>
         </div>

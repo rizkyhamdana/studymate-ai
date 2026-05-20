@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
       }
       
       // Generate 3 quizzes
-      const quizQuestions = await generateQuiz(chunkContents, "all", 3)
+      const quizQuestions = await generateQuiz(chunkContents, "all", 5)
       if (quizQuestions && quizQuestions.length > 0) {
         await db.createQuiz(material.id, isIndonesian(`${title} ${chunkContents.join(" ")}`) ? "Kuis Latihan" : "Practice Quiz", quizQuestions)
       }

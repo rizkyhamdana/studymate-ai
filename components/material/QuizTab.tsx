@@ -29,7 +29,7 @@ export default function QuizTab({
   const [activeQuiz, setActiveQuiz] = useState<Quiz | null>(quizzes[0] || null)
   const [loading, setLoading] = useState(false)
   const [difficulty, setDifficulty] = useState<"easy" | "medium" | "hard">("medium")
-  const [questionCount, setQuestionCount] = useState<number>(3)
+  const [questionCount, setQuestionCount] = useState<number>(5)
   
   // Interactive Session State
   const [currentIdx, setCurrentIdx] = useState(0)

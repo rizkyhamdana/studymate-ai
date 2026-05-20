@@ -100,48 +100,102 @@ export default function SettingsPage() {
         </p>
       </div>
 
-      {/* System Status */}
-      <div className="flex items-center gap-3">
-        <span className="text-[13px] font-medium text-[#85858a]">System Status</span>
-        {isLiveMode ? (
-          <span className="badge badge-success inline-flex items-center gap-1.5">
-            <ShieldCheck className="w-3 h-3" />
-            Live Mode
-          </span>
-        ) : (
-          <span className="badge badge-accent inline-flex items-center gap-1.5">
-            <AlertTriangle className="w-3 h-3" />
-            Sandbox Mode
-          </span>
-        )}
-      </div>
+      {/* System Status Section */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <span className="text-[13px] font-medium text-[#85858a]">System Status:</span>
+          {openaiKey.trim() && supabaseUrl.trim() && supabaseAnonKey.trim() ? (
+            <span className="badge badge-success inline-flex items-center gap-1.5 px-3 py-1 text-xs">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              Full Cloud RAG Active
+            </span>
+          ) : openaiKey.trim() ? (
+            <span className="badge bg-[#d4a044]/10 text-[#d4a044] border border-[#d4a044]/20 inline-flex items-center gap-1.5 px-3 py-1 text-xs">
+              <Info className="w-3.5 h-3.5" />
+              Hybrid Sandbox Mode
+            </span>
+          ) : (
+            <span className="badge badge-accent inline-flex items-center gap-1.5 px-3 py-1 text-xs">
+              <AlertTriangle className="w-3.5 h-3.5" />
+              Local Sandbox Mode
+            </span>
+          )}
+        </div>
 
-      {/* Status Description */}
-      {isLiveMode ? (
-        <div className="card p-5">
-          <div className="flex items-start gap-3">
-            <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+        {/* Dynamic connection badges */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className={`card p-4 flex items-center justify-between border ${
+            openaiKey.trim() 
+              ? "border-emerald-500/20 bg-emerald-500/[0.02]" 
+              : "border-amber-500/15 bg-amber-500/[0.01]"
+          }`}>
             <div className="space-y-1">
-              <p className="text-[13px] font-medium text-[#ededef]">Live Mode Active</p>
-              <p className="text-xs text-[#4e4e52] leading-relaxed">
-                StudyMate is connected to your cloud systems. All PDF extractions, vector similarity searches, semantic chunking, and summaries run directly using your OpenAI models and Supabase pgvector instance.
-              </p>
+              <span className="text-xs text-[#85858a] block">AI Generation engine</span>
+              <span className="text-sm font-semibold text-[#ededef]">OpenAI API Service</span>
             </div>
+            <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md border uppercase ${
+              openaiKey.trim() 
+                ? "text-emerald-400 border-emerald-400/25 bg-emerald-400/10" 
+                : "text-amber-400 border-amber-400/20 bg-amber-400/10"
+            }`}>
+              {openaiKey.trim() ? "Active (Live Model)" : "Mocked"}
+            </span>
+          </div>
+
+          <div className={`card p-4 flex items-center justify-between border ${
+            supabaseUrl.trim() && supabaseAnonKey.trim()
+              ? "border-emerald-500/20 bg-emerald-500/[0.02]" 
+              : "border-amber-500/15 bg-amber-500/[0.01]"
+          }`}>
+            <div className="space-y-1">
+              <span className="text-xs text-[#85858a] block">Vector Database engine</span>
+              <span className="text-sm font-semibold text-[#ededef]">Supabase Cloud DB</span>
+            </div>
+            <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md border uppercase ${
+              supabaseUrl.trim() && supabaseAnonKey.trim()
+                ? "text-emerald-400 border-emerald-400/25 bg-emerald-400/10" 
+                : "text-amber-400 border-amber-400/20 bg-amber-400/10"
+            }`}>
+              {supabaseUrl.trim() && supabaseAnonKey.trim() ? "Active (Cloud RAG)" : "Local (db.json)"}
+            </span>
           </div>
         </div>
-      ) : (
+
+        {/* Description box */}
         <div className="card p-5">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-[#d4a044] shrink-0 mt-0.5" />
-            <div className="space-y-1">
-              <p className="text-[13px] font-medium text-[#ededef]">Sandbox Mode</p>
-              <p className="text-xs text-[#4e4e52] leading-relaxed">
-                Running in zero-configuration mode. The application uses a local mock vector DB, saves states in localStorage, and synthesizes grounded context summaries. Save credentials below to activate live integrations.
-              </p>
+          {openaiKey.trim() && supabaseUrl.trim() && supabaseAnonKey.trim() ? (
+            <div className="flex items-start gap-3">
+              <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+              <div className="space-y-1">
+                <p className="text-[13px] font-medium text-[#ededef]">Full Cloud RAG Mode</p>
+                <p className="text-xs text-[#85858a] leading-relaxed">
+                  StudyMate is connected to both cloud systems. All PDF extractions, vector similarity searches, semantic chunking, and summaries run directly using your OpenAI models and your Supabase pgvector instance.
+                </p>
+              </div>
             </div>
-          </div>
+          ) : openaiKey.trim() ? (
+            <div className="flex items-start gap-3">
+              <Info className="w-5 h-5 text-[#d4a044] shrink-0 mt-0.5" />
+              <div className="space-y-1">
+                <p className="text-[13px] font-medium text-[#ededef]">Hybrid Sandbox Mode Active</p>
+                <p className="text-xs text-[#85858a] leading-relaxed">
+                  Your **OpenAI Key is active**, so the application **uses live OpenAI API models** to generate real quizzes, flashcards, summaries, and tutor responses. However, because **Supabase is not connected**, the system stores and searches all study materials locally using the local mock database file (`db.json`) instead of cloud storage.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+              <div className="space-y-1">
+                <p className="text-[13px] font-medium text-[#ededef]">Local Sandbox Mode</p>
+                <p className="text-xs text-[#85858a] leading-relaxed">
+                  Running in offline/zero-configuration mode. The application uses a local mock database (`db.json` / `localStorage`) and mock responses for study guide generation. Input your OpenAI key to start using live AI generation!
+                </p>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* API Configuration Card */}
       <div className="card p-6 space-y-6">

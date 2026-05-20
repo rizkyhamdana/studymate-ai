@@ -5,7 +5,16 @@ import Sidebar from "@/components/layout/Sidebar"
 export const metadata: Metadata = {
   title: "StudyMate AI — Your intelligent study companion",
   description: "Transform PDF materials into structured summaries, flashcards, quizzes, and get AI-powered tutoring with precise source citations.",
-  keywords: ["StudyMate", "AI Tutor", "PDF Study", "Flashcards", "Quiz Generator", "Learning"]
+  keywords: ["StudyMate", "AI Tutor", "PDF Study", "Flashcards", "Quiz Generator", "Learning"],
+  icons: {
+    icon: [
+      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: "/logo.png", type: "image/png" }
+    ],
+    apple: [
+      { url: "/logo.png", sizes: "180x180", type: "image/png" }
+    ]
+  }
 }
 
 export default function RootLayout({

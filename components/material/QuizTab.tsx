@@ -100,6 +100,7 @@ export default function QuizTab({
     const weakTopicsMap: Record<string, number> = {}
     
     activeQuiz.questions.forEach((q) => {
+      if (!q.id) return
       const userAnswer = (answers[q.id] || "").trim().toLowerCase()
       const correctAnswer = q.correct_answer.trim().toLowerCase()
       
@@ -254,6 +255,7 @@ export default function QuizTab({
   if (isGraded && activeQuiz && activeQuiz.questions) {
     const total = activeQuiz.questions.length
     const answeredCorrect = activeQuiz.questions.filter((q) => {
+      if (!q.id) return false
       const ans = (answers[q.id] || "").trim().toLowerCase()
       const correct = q.correct_answer.trim().toLowerCase()
       return q.type === "short_answer" 
@@ -322,6 +324,7 @@ export default function QuizTab({
         {/* List of reviewed questions */}
         <div className="space-y-4">
           {activeQuiz.questions.map((q, idx) => {
+            if (!q.id) return null
             const userAns = answers[q.id] || "No response provided"
             const correctAns = q.correct_answer
             const isCorrect = q.type === "short_answer"
@@ -403,7 +406,7 @@ export default function QuizTab({
   // 4. Active Test-Taking Wizard Screen
   if (activeQuiz && activeQuiz.questions && currentQuestion) {
     const total = activeQuiz.questions.length
-    const isAnswered = answers[currentQuestion.id] !== undefined
+    const isAnswered = currentQuestion.id ? answers[currentQuestion.id] !== undefined : false
     const mlInfo: any = (currentQuestion as any).ml_verification || null
 
     return (
@@ -446,11 +449,11 @@ export default function QuizTab({
           {currentQuestion.type === "multiple_choice" && (
             <div className="grid grid-cols-1 gap-3">
               {currentQuestion.options.map((option) => {
-                const isSelected = answers[currentQuestion.id] === option
+                const isSelected = currentQuestion.id ? answers[currentQuestion.id] === option : false
                 return (
                   <button
                     key={option}
-                    onClick={() => handleAnswerSelect(currentQuestion.id, option)}
+                    onClick={() => currentQuestion.id && handleAnswerSelect(currentQuestion.id, option)}
                     className={`text-left p-4 rounded-lg border text-sm font-medium transition-colors flex items-center gap-3 ${
                       isSelected 
                         ? "bg-[rgba(212,160,68,0.08)] text-[#ededef] border-[#d4a044]"
@@ -474,11 +477,11 @@ export default function QuizTab({
           {currentQuestion.type === "true_false" && (
             <div className="grid grid-cols-2 gap-4">
               {["True", "False"].map((opt) => {
-                const isSelected = answers[currentQuestion.id] === opt
+                const isSelected = currentQuestion.id ? answers[currentQuestion.id] === opt : false
                 return (
                   <button
                     key={opt}
-                    onClick={() => handleAnswerSelect(currentQuestion.id, opt)}
+                    onClick={() => currentQuestion.id && handleAnswerSelect(currentQuestion.id, opt)}
                     className={`py-4 rounded-lg border text-sm font-semibold transition-colors flex flex-col items-center justify-center gap-2 ${
                       isSelected 
                         ? "bg-[rgba(212,160,68,0.08)] text-[#ededef] border-[#d4a044]"
@@ -495,8 +498,8 @@ export default function QuizTab({
           {currentQuestion.type === "short_answer" && (
             <div className="space-y-2">
               <textarea
-                value={answers[currentQuestion.id] || ""}
-                onChange={(e) => handleAnswerSelect(currentQuestion.id, e.target.value)}
+                value={currentQuestion.id ? (answers[currentQuestion.id] || "") : ""}
+                onChange={(e) => currentQuestion.id && handleAnswerSelect(currentQuestion.id, e.target.value)}
                 placeholder="Write your answer here..."
                 rows={3}
                 className="w-full bg-[#19191d] border border-[rgba(255,255,255,0.08)] outline-none rounded-lg p-4 text-sm text-[#ededef] placeholder-[#4e4e52] focus:border-[#d4a044] transition-colors leading-relaxed"

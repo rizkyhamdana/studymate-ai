@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
 
     if (!regenerate) {
       const cached = await db.getQuizzes(materialId)
-      if (cached && cached.length > 0) {
+      if (cached && cached.length > 0 && cached[0].id) {
         // Fetch questions for the first quiz
         const questions = await db.getQuizQuestions(cached[0].id)
         return NextResponse.json({ quiz: { ...cached[0], questions } })

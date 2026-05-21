@@ -88,7 +88,13 @@ export default function MaterialsClient({ materials }: MaterialsClientProps) {
                   <div className="w-9 h-9 rounded-lg bg-[#19191d] border border-[rgba(255,255,255,0.06)] flex items-center justify-center shrink-0">
                     <FileText className="w-4 h-4 text-[#4e4e52]" />
                   </div>
-                  <span className="badge badge-success">Processed</span>
+                  <span className={`badge ${
+                    m.status === "completed" ? "badge-success" : 
+                    m.status === "processing" ? "badge-warning" : 
+                    "badge-error"
+                  }`}>
+                    {m.status.charAt(0).toUpperCase() + m.status.slice(1)}
+                  </span>
                 </div>
 
                 <h3 className="font-display font-semibold text-sm text-[#ededef] line-clamp-2 mb-2">

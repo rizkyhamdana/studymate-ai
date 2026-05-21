@@ -87,7 +87,7 @@ export default function FlashcardsTab({
     if (!activeCard) return
     
     try {
-      setUpdatingId(activeCard.id)
+      setUpdatingId(activeCard.id || null)
       const res = await fetch("/api/flashcards", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

@@ -18,6 +18,18 @@ export async function extractTextFromPDF(
   buffer: ArrayBuffer,
   fileName: string
 ): Promise<PDFPage[]> {
+  // 0. Basic File Validation
+  if (!buffer || buffer.byteLength === 0) {
+    throw new Error("Invalid file buffer: File is empty")
+  }
+
+  // Check PDF signature (%PDF-)
+  const view = new Uint8Array(buffer.slice(0, 4))
+  const signature = String.fromCharCode(view[0], view[1], view[2], view[3])
+  if (signature !== "%PDF") {
+    console.warn(`File ${fileName} does not have a valid PDF signature: ${signature}. Attempting to process anyway...`)
+  }
+
   const projectRoot = path.resolve(process.cwd())
   const scratchDir = path.join(projectRoot, "scratch")
   const tempFileName = `temp_upload_${Date.now()}_${Math.random().toString(36).slice(2, 7)}.pdf`
@@ -37,7 +49,9 @@ export async function extractTextFromPDF(
     const venvPaths = [
       path.join(projectRoot, ".venv", "bin", "python"),
       path.join(projectRoot, "venv", "bin", "python"),
-      path.join(projectRoot, "env", "bin", "python")
+      path.join(projectRoot, "env", "bin", "python"),
+      path.join(projectRoot, "ml", ".venv", "bin", "python"),
+      path.join(projectRoot, "ml", "venv", "bin", "python")
     ]
     for (const vp of venvPaths) {
       if (fs.existsSync(vp)) {
@@ -48,13 +62,26 @@ export async function extractTextFromPDF(
 
     // 4. Run the python pdf_extractor subprocess
     const escapedFilePath = tempFilePath.replace(/\\/g, "\\\\").replace(/'/g, "\\'")
-    const cmd = `"${pythonBin}" -c "import sys; sys.path.append('${projectRoot}'); from ml.src.pdf_extractor import extract_text_from_pdf; import json; print(json.dumps(extract_text_from_pdf('${escapedFilePath}')))"`
     
-    console.log(`Executing Python PDF extraction subprocess for ${fileName}...`)
-    const stdout = execSync(cmd, { cwd: projectRoot, timeout: 15000 }).toString()
+    // Construct the command carefully to ensure sys.path includes the project root
+    const pythonScript = `import sys; import json; sys.path.append('${projectRoot}'); from ml.src.pdf_extractor import extract_text_from_pdf; print(json.dumps(extract_text_from_pdf('${escapedFilePath}')))`
+    const cmd = `"${pythonBin}" -c "${pythonScript}"`
+    
+    console.log(`Executing Python PDF extraction: ${cmd}`)
+    const stdout = execSync(cmd, { 
+      cwd: projectRoot, 
+      timeout: 30000,
+      env: { ...process.env, PYTHONPATH: projectRoot } 
+    }).toString()
     
     // Parse output JSON
-    const extractedPages = JSON.parse(stdout)
+    const result = JSON.parse(stdout)
+    
+    if (result.error) {
+      throw new Error(`Python Extractor Error: ${result.error}`)
+    }
+
+    const extractedPages = result
     
     // 5. Clean up temporary file
     if (fs.existsSync(tempFilePath)) {
@@ -69,7 +96,7 @@ export async function extractTextFromPDF(
       }))
     }
   } catch (err: any) {
-    console.warn("Python PDF extraction subprocess failed. Running resilient mock simulation engine fallback. Details:", err.message)
+    console.warn(`Python PDF extraction subprocess failed for ${fileName}. Running resilient mock simulation engine fallback.`, err.message)
     // Clean up temporary file in case of error
     try {
       if (fs.existsSync(tempFilePath)) {

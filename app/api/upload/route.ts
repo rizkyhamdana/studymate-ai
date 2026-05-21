@@ -58,28 +58,36 @@ export async function POST(req: NextRequest) {
     // Store in Database
     await db.createMaterialChunks(chunksWithEmbeddings)
     
-    // 5. Pre-generate Initial Study Guides (Summary, Flashcards, Quiz)
+    // 5. Pre-generate Initial Study Guides (Summary, Flashcards, Quiz) in PARALLEL
     // We isolate these in a try-catch so even if OpenAI fails/expires, the material upload is preserved
     try {
       const chunkContents = chunksWithEmbeddings.map(c => c.content)
       
-      // Generate summary
-      const summaryData = await generateSummary(chunkContents)
+      console.log(`Generating study guides for ${title} in parallel...`)
+      const [summaryData, cards, quizQuestions] = await Promise.all([
+        generateSummary(chunkContents),
+        generateFlashcards(chunkContents, 5),
+        generateQuiz(chunkContents, "all", 5)
+      ])
+
+      const persistenceTasks: Promise<any>[] = []
+
       if (summaryData) {
-        await db.createSummary(material.id, summaryData)
+        persistenceTasks.push(db.createSummary(material.id, summaryData))
       }
       
-      // Generate 5 flashcards
-      const cards = await generateFlashcards(chunkContents, 5)
       if (cards && cards.length > 0) {
-        await db.createFlashcards(material.id, cards)
+        persistenceTasks.push(db.createFlashcards(material.id, cards))
       }
       
-      // Generate 3 quizzes
-      const quizQuestions = await generateQuiz(chunkContents, "all", 5)
       if (quizQuestions && quizQuestions.length > 0) {
-        await db.createQuiz(material.id, isIndonesian(`${title} ${chunkContents.join(" ")}`) ? "Kuis Latihan" : "Practice Quiz", quizQuestions)
+        const quizTitle = isIndonesian(`${title} ${chunkContents.join(" ")}`) ? "Kuis Latihan" : "Practice Quiz"
+        persistenceTasks.push(db.createQuiz(material.id, quizTitle, quizQuestions))
       }
+
+      await Promise.all(persistenceTasks)
+      console.log(`Study guides generated and persisted for ${title}`)
+      
     } catch (aiErr) {
       console.warn("AI pre-generation failed or timed out during upload. Proceeding with material creation.", aiErr)
     }

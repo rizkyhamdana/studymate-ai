@@ -29,7 +29,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
       const quizzes = await Promise.all(
         quizRows.map(async (quiz) => ({
           ...quiz,
-          questions: await db.getQuizQuestions(quiz.id)
+          questions: quiz.id ? await db.getQuizQuestions(quiz.id) : []
         }))
       )
       return NextResponse.json({ quizzes })

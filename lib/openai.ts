@@ -1,9 +1,18 @@
 import { SYSTEM_PROMPTS, USER_PROMPTS } from "./prompts"
-import { validateJSONResponse } from "./validators"
+import { 
+  validateJSONResponse, 
+  SummarySchema, 
+  FlashcardCollectionSchema, 
+  QuizQuestionCollectionSchema
+} from "./validators"
 import { isIndonesian } from "./language"
+import { z } from "zod"
 
-// Safe helper to extract OpenAI API Key
-const getApiKey = () => {
+/**
+ * Retrieves the OpenAI API key from either localStorage (client),
+ * cookies (server), or environment variables.
+ */
+function getApiKey(): string {
   if (typeof window !== "undefined") {
     const localKey = localStorage.getItem("studymate_openai_api_key")
     if (localKey) return localKey
@@ -100,8 +109,10 @@ export async function generateSummary(chunks: string[]): Promise<any> {
       })
       if (response.ok) {
         const json = await response.json()
-        return validateJSONResponse(json.choices[0].message.content, null)
+        return validateJSONResponse(json.choices[0].message.content, SummarySchema, null)
       }
+      const errorDetail = await response.text()
+      console.warn(`OpenAI Summary API error (${response.status}):`, errorDetail)
     } catch (e) {
       console.error("OpenAI Summary generation failed:", e)
     }
@@ -234,9 +245,16 @@ export async function generateFlashcards(chunks: string[], count: number): Promi
       })
       if (response.ok) {
         const json = await response.json()
-        const parsed = validateJSONResponse<any>(json.choices[0].message.content, [])
+        const content = json.choices[0].message.content
+        
+        // Handle cases where AI returns { "flashcards": [...] } or just [...]
+        const wrapperSchema = z.object({ flashcards: FlashcardCollectionSchema })
+        const parsed = validateJSONResponse<any>(content, z.union([FlashcardCollectionSchema, wrapperSchema]), [])
+        
         return Array.isArray(parsed) ? parsed : (parsed.flashcards || [])
       }
+      const errorDetail = await response.text()
+      console.warn(`OpenAI Flashcard API error (${response.status}):`, errorDetail)
     } catch (e) {
       console.error("OpenAI Flashcard generation failed:", e)
     }
@@ -314,9 +332,15 @@ export async function generateQuiz(
       })
       if (response.ok) {
         const json = await response.json()
-        const parsed = validateJSONResponse<any>(json.choices[0].message.content, [])
+        const content = json.choices[0].message.content
+
+        const wrapperSchema = z.object({ questions: QuizQuestionCollectionSchema })
+        const parsed = validateJSONResponse<any>(content, z.union([QuizQuestionCollectionSchema, wrapperSchema]), [])
+        
         return Array.isArray(parsed) ? parsed : (parsed.questions || [])
       }
+      const errorDetail = await response.text()
+      console.warn(`OpenAI Quiz API error (${response.status}):`, errorDetail)
     } catch (e) {
       console.error("OpenAI Quiz generation failed:", e)
     }
@@ -512,8 +536,20 @@ export async function answerQuestionWithRAG(
       })
       if (response.ok) {
         const json = await response.json()
-        return validateJSONResponse(json.choices[0].message.content, null)
+        const ChatResponseSchema = z.object({
+          answer: z.string(),
+          sources: z.array(z.object({
+            page_number: z.number(),
+            chunk_index: z.number(),
+            quote: z.string()
+          })),
+          confidence: z.number(),
+          suggested_follow_up_questions: z.array(z.string())
+        })
+        return validateJSONResponse(json.choices[0].message.content, ChatResponseSchema, null)
       }
+      const errorDetail = await response.text()
+      console.warn(`OpenAI RAG API error (${response.status}):`, errorDetail)
     } catch (e) {
       console.error("OpenAI RAG chat failed:", e)
     }

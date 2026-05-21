@@ -1,57 +1,41 @@
 import supabase from "./supabase"
-import { Material, MaterialChunk, Summary, Flashcard, Quiz, QuizQuestion, QuizAttempt, ChatMessage } from "./validators"
+import { 
+  Material, MaterialSchema,
+  MaterialChunk, MaterialChunkSchema,
+  Summary, SummarySchema,
+  Flashcard, FlashcardSchema,
+  Quiz, QuizSchema,
+  QuizQuestion, QuizQuestionSchema,
+  QuizAttempt, QuizAttemptSchema,
+  ChatMessage, ChatMessageSchema
+} from "./validators"
+import { z } from "zod"
 
 const MOCK_USER_ID = "00000000-0000-0000-0000-000000000000"
 
+/**
+ * Database utility layer.
+ * Implements strict Zod validation on all data retrieved from Supabase
+ * to prevent runtime crashes caused by unexpected data formats.
+ */
 export const db = {
   // --- Materials ---
   async getMaterials(): Promise<Material[]> {
-    const [materialsRes, flashcardsRes, quizzesRes, chunksRes] = await Promise.all([
-      supabase
+    const { data, error } = await supabase
         .from("materials")
         .select("id, user_id, title, file_url, file_name, file_size, total_pages, status, created_at")
-        .order("created_at", { ascending: false }),
-      supabase.from("flashcards").select("material_id"),
-      supabase.from("quizzes").select("material_id"),
-      supabase.from("material_chunks").select("material_id")
-    ])
+        .order("created_at", { ascending: false })
     
-    if (materialsRes.error) console.error("Error fetching materials:", materialsRes.error)
+    if (error) {
+      console.error("Error fetching materials:", error)
+      return []
+    }
     
-    const materials = materialsRes.data || []
-    const flashcards = flashcardsRes.data || []
-    const quizzes = quizzesRes.data || []
-    const chunks = chunksRes.data || []
-    
-    const fcMap: Record<string, number> = {}
-    const qzMap: Record<string, number> = {}
-    const chMap: Record<string, number> = {}
-    
-    flashcards.forEach((fc: any) => {
-      if (fc.material_id) {
-        fcMap[fc.material_id] = (fcMap[fc.material_id] || 0) + 1
-      }
-    })
-    
-    quizzes.forEach((qz: any) => {
-      if (qz.material_id) {
-        qzMap[qz.material_id] = (qzMap[qz.material_id] || 0) + 1
-      }
-    })
-    
-    chunks.forEach((ch: any) => {
-      if (ch.material_id) {
-        chMap[ch.material_id] = (chMap[ch.material_id] || 0) + 1
-      }
-    })
-    
-    materials.forEach((m: Material) => {
-      m.flashcard_count = fcMap[m.id] || 0
-      m.quiz_count = qzMap[m.id] || 0
-      m.chunk_count = chMap[m.id] || 0
-    })
-    
-    return materials
+    // Validate each material
+    return (data || []).map((m: any) => {
+      const res = MaterialSchema.safeParse(m)
+      return res.success ? res.data : null
+    }).filter((m: any): m is Material => m !== null)
   },
 
   async getMaterial(id: string): Promise<Material | null> {
@@ -62,10 +46,12 @@ export const db = {
       .single()
       
     if (error) {
-      console.error("Error fetching material:", error)
+      console.error(`Error fetching material ${id}:`, error)
       return null
     }
-    return data
+
+    const res = MaterialSchema.safeParse(data)
+    return res.success ? res.data : null
   },
 
   async createMaterial(title: string, fileName: string, fileSize: number, totalPages: number): Promise<Material> {
@@ -75,73 +61,56 @@ export const db = {
       file_name: fileName,
       file_size: fileSize,
       total_pages: totalPages,
-      status: "completed" // In mock environment we mark completed immediately, in active upload we process
+      status: "completed"
     }
     
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("materials")
       .insert(materialData)
       .select()
       .single()
+    
+    if (error) throw new Error(`Failed to create material: ${error.message}`)
       
-    return data
-  },
-
-  async updateMaterialStatus(id: string, status: "processing" | "completed" | "failed"): Promise<void> {
-    await supabase
-      .from("materials")
-      .update({ status })
-      .eq("id", id)
+    return MaterialSchema.parse(data)
   },
 
   // --- Chunks ---
   async createMaterialChunks(chunks: Omit<MaterialChunk, "id" | "created_at">[]): Promise<void> {
-    await supabase.from("material_chunks").insert(chunks)
+    const { error } = await supabase.from("material_chunks").insert(chunks)
+    if (error) throw new Error(`Failed to create chunks: ${error.message}`)
   },
 
   async getMaterialChunks(materialId: string): Promise<MaterialChunk[]> {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("material_chunks")
-      .select("id, material_id, content, page_number, chunk_index, token_estimate, created_at")
+      .select("*")
       .eq("material_id", materialId)
       .order("chunk_index", { ascending: true })
-    return data || []
-  },
-
-  async getMaterialOverviewStats(materialId: string): Promise<{
-    chunkCount: number
-    flashcardCount: number
-    masteredFlashcardCount: number
-    quizCount: number
-  }> {
-    const [chunksRes, flashcardsRes, quizzesRes] = await Promise.all([
-      supabase.from("material_chunks").select("material_id").eq("material_id", materialId),
-      supabase.from("flashcards").select("status").eq("material_id", materialId),
-      supabase.from("quizzes").select("id").eq("material_id", materialId)
-    ])
-
-    const flashcards = flashcardsRes.data || []
-
-    return {
-      chunkCount: chunksRes.data?.length || 0,
-      flashcardCount: flashcards.length,
-      masteredFlashcardCount: flashcards.filter((f: any) => f.status === "mastered").length,
-      quizCount: quizzesRes.data?.length || 0
-    }
+    
+    if (error) return []
+    
+    return (data || []).map((c: any) => {
+      const res = MaterialChunkSchema.safeParse(c)
+      return res.success ? res.data : null
+    }).filter((c: any): c is MaterialChunk => c !== null)
   },
 
   // --- Summaries ---
   async getSummary(materialId: string): Promise<Summary | null> {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("summaries")
       .select("*")
       .eq("material_id", materialId)
       .single()
-    return data
+    
+    if (error) return null
+    const res = SummarySchema.safeParse(data)
+    return res.success ? res.data : null
   },
 
   async createSummary(materialId: string, summary: Omit<Summary, "id" | "material_id" | "created_at">): Promise<Summary> {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("summaries")
       .insert({
         material_id: materialId,
@@ -149,17 +118,24 @@ export const db = {
       })
       .select()
       .single()
-    return data
+    
+    if (error) throw new Error(`Failed to create summary: ${error.message}`)
+    return SummarySchema.parse(data)
   },
 
   // --- Flashcards ---
   async getFlashcards(materialId: string): Promise<Flashcard[]> {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("flashcards")
       .select("*")
       .eq("material_id", materialId)
       .order("created_at", { ascending: true })
-    return data || []
+    
+    if (error) return []
+    return (data || []).map((f: any) => {
+      const res = FlashcardSchema.safeParse(f)
+      return res.success ? res.data : null
+    }).filter((f: any): f is Flashcard => f !== null)
   },
 
   async createFlashcards(materialId: string, cards: Omit<Flashcard, "id" | "material_id" | "status" | "created_at">[]): Promise<Flashcard[]> {
@@ -168,40 +144,54 @@ export const db = {
       status: "new",
       ...c
     }))
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("flashcards")
       .insert(prepped)
       .select()
-    return data || []
+    
+    if (error) throw new Error(`Failed to create flashcards: ${error.message}`)
+    return (data || []).map((f: any) => FlashcardSchema.parse(f))
   },
 
-  async updateFlashcardStatus(id: string, status: "new" | "mastered" | "review"): Promise<any> {
-    const { data } = await supabase
+  async updateFlashcardStatus(id: string, status: string): Promise<Flashcard> {
+    const { data, error } = await supabase
       .from("flashcards")
       .update({ status })
       .eq("id", id)
       .select()
       .single()
-    return data
+    
+    if (error) throw new Error(`Failed to update flashcard status: ${error.message}`)
+    return FlashcardSchema.parse(data)
   },
 
   // --- Quizzes ---
   async getQuizzes(materialId: string): Promise<Quiz[]> {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("quizzes")
       .select("*")
       .eq("material_id", materialId)
       .order("created_at", { ascending: false })
-    return data || []
+    
+    if (error) return []
+    return (data || []).map((q: any) => {
+      const res = QuizSchema.safeParse(q)
+      return res.success ? res.data : null
+    }).filter((q: any): q is Quiz => q !== null)
   },
 
   async getQuizQuestions(quizId: string): Promise<QuizQuestion[]> {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("quiz_questions")
       .select("*")
       .eq("quiz_id", quizId)
       .order("created_at", { ascending: true })
-    return data || []
+    
+    if (error) return []
+    return (data || []).map((q: any) => {
+      const res = QuizQuestionSchema.safeParse(q)
+      return res.success ? res.data : null
+    }).filter((q: any): q is QuizQuestion => q !== null)
   },
 
   async createQuiz(
@@ -209,7 +199,7 @@ export const db = {
     title: string,
     questions: Omit<QuizQuestion, "id" | "quiz_id" | "created_at">[]
   ): Promise<Quiz> {
-    const { data: quiz } = await supabase
+    const { data: quiz, error: qError } = await supabase
       .from("quizzes")
       .insert({
         material_id: materialId,
@@ -218,42 +208,40 @@ export const db = {
       .select()
       .single()
       
+    if (qError) throw new Error(`Failed to create quiz: ${qError.message}`)
+      
     if (quiz) {
       const preppedQuestions = questions.map(q => ({
         quiz_id: quiz.id,
         ...q
       }))
-      await supabase.from("quiz_questions").insert(preppedQuestions)
-      quiz.questions = await this.getQuizQuestions(quiz.id)
+      const { error: qsError } = await supabase.from("quiz_questions").insert(preppedQuestions)
+      if (qsError) console.error("Error inserting quiz questions:", qsError)
+      
+      const validatedQuiz = QuizSchema.parse(quiz)
+      validatedQuiz.questions = await this.getQuizQuestions(quiz.id)
+      return validatedQuiz
     }
     
-    return quiz
+    throw new Error("Quiz creation returned no data")
   },
 
   // --- Quiz Attempts ---
   async getQuizAttempts(): Promise<QuizAttempt[]> {
-    const [attemptsRes, quizzesRes] = await Promise.all([
-      supabase.from("quiz_attempts").select("*").order("created_at", { ascending: false }),
-      supabase.from("quizzes").select("id, title")
-    ])
+    const { data, error } = await supabase
+      .from("quiz_attempts")
+      .select("*")
+      .order("created_at", { ascending: false })
     
-    const attempts = attemptsRes.data || []
-    const quizzes = quizzesRes.data || []
-    const quizMap: Record<string, string> = {}
-    
-    quizzes.forEach((q: any) => {
-      quizMap[q.id] = q.title
-    })
-    
-    attempts.forEach((a: QuizAttempt) => {
-      a.quiz_title = quizMap[a.quiz_id] || "Study Quiz"
-    })
-    
-    return attempts
+    if (error) return []
+    return (data || []).map((a: any) => {
+      const res = QuizAttemptSchema.safeParse(a)
+      return res.success ? res.data : null
+    }).filter((a: any): a is QuizAttempt => a !== null)
   },
 
   async createQuizAttempt(quizId: string, score: number, totalQuestions: number, weakTopics: string[]): Promise<QuizAttempt> {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("quiz_attempts")
       .insert({
         quiz_id: quizId,
@@ -264,17 +252,24 @@ export const db = {
       })
       .select()
       .single()
-    return data
+    
+    if (error) throw new Error(`Failed to create quiz attempt: ${error.message}`)
+    return QuizAttemptSchema.parse(data)
   },
 
   // --- Chat Messages ---
   async getChatMessages(materialId: string): Promise<ChatMessage[]> {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("chat_messages")
       .select("*")
       .eq("material_id", materialId)
       .order("created_at", { ascending: true })
-    return data || []
+    
+    if (error) return []
+    return (data || []).map((m: any) => {
+      const res = ChatMessageSchema.safeParse(m)
+      return res.success ? res.data : null
+    }).filter((m: any): m is ChatMessage => m !== null)
   },
 
   async addChatMessage(
@@ -283,7 +278,7 @@ export const db = {
     content: string,
     sources: any[] = []
   ): Promise<ChatMessage> {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("chat_messages")
       .insert({
         material_id: materialId,
@@ -294,7 +289,32 @@ export const db = {
       })
       .select()
       .single()
-    return data
+    
+    if (error) throw new Error(`Failed to add chat message: ${error.message}`)
+    return ChatMessageSchema.parse(data)
+  },
+
+  async getMaterialOverviewStats(materialId: string): Promise<{
+    chunkCount: number
+    flashcardCount: number
+    masteredFlashcardCount: number
+    quizCount: number
+  }> {
+    const [chunks, flashcards, quizzes] = await Promise.all([
+      supabase.from("material_chunks").select("id").eq("material_id", materialId),
+      supabase.from("flashcards").select("status").eq("material_id", materialId),
+      supabase.from("quizzes").select("id").eq("material_id", materialId)
+    ])
+
+    const flashcardsData = flashcards.data || []
+    const masteredCount = flashcardsData.filter((f: any) => f.status === "mastered").length
+
+    return {
+      chunkCount: chunks.data?.length || 0,
+      flashcardCount: flashcardsData.length || 0,
+      masteredFlashcardCount: masteredCount,
+      quizCount: quizzes.data?.length || 0
+    }
   },
 
   // --- Global Analytics aggregation ---
